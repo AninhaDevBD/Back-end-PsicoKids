@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<c2uistate>
+    <!--This is a UI state file - its content describes the user interface settings when the project was last open.
+It is entirely optional and the project will load without it.  If you are placing the project under source control,
+you probably do not want to add any .uistate.xml files to the repository.-->
+    <configurations>
+        <active>
+            <configuration name="HTML5" />
+        </active>
+        <display name="HTML5" />
+    </configurations>
+    <open-tabs>
+        <layout order="0">RecuperaçãoSenha</layout>
+        <layout order="1">ConfiguraçãoResponsável</layout>
+        <layout order="2">Verificação</layout>
+        <layout order="3">DadosResponsável</layout>
+        <layout order="4">DadosCrianças</layout>
+        <layout order="5">Relatório</layout>
+        <event-sheet active="1" order="6">Programação</event-sheet>
+    </open-tabs>
+    <properties>
+        <property expanded="1" name="About" />
+        <property expanded="1" name="Project settings" />
+        <property expanded="0" name="Window Size" />
+        <property expanded="1" name="Configuration Settings" />
+    </properties>
+    <families-expanded root="1" />
+    <folders-expanded>
+        <folder expanded="1" path="object-folder/" />
+        <folder expanded="1" path="layout-folder/" />
+        <folder expanded="1" path="event-folder/" />
+        <folder expanded="1" path="file-folder/" />
+        <folder expanded="1" path="sound-folder/" />
+        <folder expanded="1" path="music-folder/" />
+        <folder expanded="0" path="file-folder/Icons/" />
+        <folder expanded="1" path="animation-folder/Fundo/" />
+        <folder expanded="1" path="animation-folder/Sprite/" />
+        <folder expanded="1" path="animation-folder/btn_CadastrarL/" />
+        <folder expanded="1" path="animation-folder/btn_EntrarL/" />
+        <folder expanded="1" path="animation-folder/txt_Bemvindo/" />
+        <folder expanded="1" path="animation-folder/Sprite3/" />
+        <folder expanded="1" path="animation-folder/Sprite4/" />
+        <folder expanded="1" path="animation-folder/Sprite5/" />
+        <folder expanded="1" path="animation-folder/txt_EsqueciSenha/" />
+        <folder expanded="1" path="animation-folder/spt_fundo/" />
+        <folder expanded="1" path="animation-folder/btn_VoltarCad/" />
+        <folder expanded="1" path="animation-folder/txt_Cadastro/" />
+        <folder expanded="1" path="animation-folder/btn_CadastrarTCad/" />
+        <folder expanded="1" path="animation-folder/Sprite6/" />
+        <folder expanded="1" path="animation-folder/Sprite7/" />
+        <folder expanded="1" path="animation-folder/txt_RecuperaSenha/" />
+        <folder expanded="1" path="animation-folder/txt_ou/" />
+        <folder expanded="1" path="animation-folder/btn_EnviarRecS/" />
+        <folder expanded="1" path="animation-folder/btn_ConfirmarRecS/" />
+        <folder expanded="1" path="animation-folder/btn_VoltarRecS/" />
+        <folder expanded="1" path="animation-folder/txt_NovaSenha/" />
+        <folder expanded="1" path="animation-folder/btn_VoltarRedS/" />
+        <folder expanded="1" path="animation-folder/btn_ConfirmarRedS/" />
+        <folder expanded="1" path="animation-folder/txt_ConfigResponsavel/" />
+        <folder expanded="1" path="animation-folder/txt_DescricaoSenha/" />
+        <folder expanded="1" path="animation-folder/btn_ConfirmarCR/" />
+        <folder expanded="1" path="animation-folder/txt_configCrianca/" />
+        <folder expanded="1" path="animation-folder/btn_ImagemConfigC/" />
+        <folder expanded="1" path="animation-folder/Sprite10/" />
+        <folder expanded="1" path="animation-folder/txt_idadeserieC/" />
+        <folder expanded="1" path="animation-folder/txt_IdadeSenhaC/" />
+        <folder expanded="1" path="animation-folder/txt_sexoC/" />
+        <folder expanded="1" path="animation-folder/txt_feminino/" />
+        <folder expanded="1" path="animation-folder/txt_masculinoC/" />
+        <folder expanded="1" path="animation-folder/btn_ConfirmarCC/" />
+        <folder expanded="1" path="animation-folder/spt_fundo2/" />
+        <folder expanded="1" path="animation-folder/spt_pomar/" />
+        <folder expanded="1" path="animation-folder/spt_cidade/" />
+        <folder expanded="1" path="animation-folder/spt_hortifrut/" />
+        <folder expanded="1" path="animation-folder/Sprite12/" />
+        <folder expanded="1" path="animation-folder/Sprite13/" />
+        <folder expanded="1" path="animation-folder/spt_rodapeTInicial/" />
+        <folder expanded="1" path="animation-folder/Sprite14/" />
+        <folder expanded="1" path="animation-folder/btn_InicioTInicial/" />
+        <folder expanded="1" path="animation-folder/btn_JogarTInicial/" />
+        <folder expanded="1" path="animation-folder/btn_RelatorioTInicial/" />
+        <folder expanded="1" path="animation-folder/btn_AjustesTInicial/" />
+        <folder expanded="1" path="animation-folder/Sprite15/" />
+        <folder expanded="1" path="animation-folder/Sprite16/" />
+        <folder expanded="1" path="animation-folder/btn_VoltarV/" />
+        <folder expanded="1" path="animation-folder/btn_ConfirmarV/" />
+        <folder expanded="1" path="animation-folder/txt_EsqueciSenhaVer/" />
+        <folder expanded="1" path="animation-folder/spt_rodapeV/" />
+        <folder expanded="1" path="animation-folder/btn_InicioV/" />
+        <folder expanded="1" path="animation-folder/btn_JogarV/" />
+        <folder expanded="1" path="animation-folder/btn_RelatorioV/" />
+        <folder expanded="1" path="animation-folder/btn_AjsutesV/" />
+        <folder expanded="1" path="animation-folder/btn_SomMusica/" />
+        <folder expanded="1" path="animation-folder/btn_DadosR/" />
+        <folder expanded="1" path="animation-folder/btn_DadosC/" />
+        <folder expanded="1" path="animation-folder/spt_rodapeMenuR/" />
+        <folder expanded="1" path="animation-folder/btn_InicioMenuR/" />
+        <folder expanded="1" path="animation-folder/btn_JogarMenuR/" />
+        <folder expanded="1" path="animation-folder/btn_RelatorioMenuR/" />
+        <folder expanded="1" path="animation-folder/btn_AjustesMenuR/" />
+        <folder expanded="1" path="animation-folder/btn_VoltarMenuR/" />
+        <folder expanded="1" path="animation-folder/spt_rodapeDR/" />
+        <folder expanded="1" path="animation-folder/btn_CancelarDadosR/" />
+        <folder expanded="1" path="animation-folder/btn_ConfirmarDadosR/" />
+        <folder expanded="1" path="animation-folder/btn_VoltarDadosR/" />
+        <folder expanded="1" path="animation-folder/btn_InicioDadosR/" />
+        <folder expanded="1" path="animation-folder/btn_JogarDadosR/" />
+        <folder expanded="1" path="animation-folder/btn_RelatorioDadosR/" />
+        <folder expanded="1" path="animation-folder/btn_AjustesDadosR/" />
+        <folder expanded="1" path="animation-folder/btn_ImagemDC/" />
+        <folder expanded="1" path="animation-folder/btn_VoltarDC/" />
+        <folder expanded="1" path="animation-folder/sppt_RodapeDC/" />
+        <folder expanded="1" path="animation-folder/btn_InicioDC/" />
+        <folder expanded="1" path="animation-folder/btn_JogarDC/" />
+        <folder expanded="1" path="animation-folder/btn_RelatorioDC/" />
+        <folder expanded="1" path="animation-folder/btn_Ajustes/" />
+        <folder expanded="1" path="animation-folder/btn_ConfirmarDC/" />
+        <folder expanded="1" path="animation-folder/btn_CancelarDC/" />
+        <folder expanded="1" path="animation-folder/txt_IdadeSerie/" />
+        <folder expanded="1" path="animation-folder/txt_IdadeSerieDC/" />
+        <folder expanded="1" path="animation-folder/txt_SexoDC/" />
+        <folder expanded="1" path="animation-folder/txt_FemininoDC/" />
+        <folder expanded="1" path="animation-folder/txt_MasculinoDC/" />
+        <folder expanded="1" path="animation-folder/Sprite18/" />
+        <folder expanded="1" path="animation-folder/spt_RodapeR/" />
+        <folder expanded="1" path="animation-folder/btn_InicioR/" />
+        <folder expanded="1" path="animation-folder/btn_JogarR/" />
+        <folder expanded="1" path="animation-folder/btn_RelatorioR/" />
+        <folder expanded="1" path="animation-folder/btn_AjustesR/" />
+        <folder expanded="1" path="animation-folder/btn_VoltarR/" />
+        <folder expanded="1" path="animation-folder/spt_ImagemR/" />
+        <folder expanded="1" path="animation-folder/btn_ImagemR/" />
+    </folders-expanded>
+</c2uistate>

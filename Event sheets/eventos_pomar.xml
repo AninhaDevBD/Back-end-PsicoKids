@@ -1,0 +1,422 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<c2eventsheet>
+    <!--All the 'name' attributes are ignored by Construct 2 - they are there for readability only.-->
+    <name>eventos_pomar</name>
+    <events>
+        <variable constant="0" name="vidas" sid="814682704441423" static="0" type="number">3</variable>
+        <variable constant="0" name="garrafas" sid="151940904356841" static="0" type="number">0</variable>
+        <event-group description="" sid="934786120105010" title="controlesPlayer">
+            <sub-events>
+                <event-block sid="991150115150190">
+                    <conditions>
+                        <condition id="4" name="Is touching object" sid="107259360149531" type="Touch">
+                            <param id="0" name="Object">btn_Esquerdo</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action behavior="Platform" id="7" name="Simulate control" sid="479374523455282" type="spt_Player">
+                            <param id="0" name="Control">0</param>
+                        </action>
+                        <action id="4" name="Set animation" sid="868988770083705" type="spt_Player">
+                            <param id="0" name="Animation">&quot;correndo&quot;</param>
+                            <param id="1" name="From">1</param>
+                        </action>
+                        <action id="7" name="Set mirrored" sid="411942306306551" type="spt_Player">
+                            <param id="0" name="State">0</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="577310913071359">
+                    <conditions>
+                        <condition id="4" name="Is touching object" sid="483064096396984" type="Touch">
+                            <param id="0" name="Object">btn_Direito</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action behavior="Platform" id="7" name="Simulate control" sid="651990541359418" type="spt_Player">
+                            <param id="0" name="Control">1</param>
+                        </action>
+                        <action id="4" name="Set animation" sid="997212633655979" type="spt_Player">
+                            <param id="0" name="Animation">&quot;correndo&quot;</param>
+                            <param id="1" name="From">1</param>
+                        </action>
+                        <action id="7" name="Set mirrored" sid="479538334056435" type="spt_Player">
+                            <param id="0" name="State">1</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="266569208798094">
+                    <conditions>
+                        <condition id="4" name="Is touching object" sid="997568444383665" type="Touch">
+                            <param id="0" name="Object">btn_Pulo</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action behavior="Platform" id="7" name="Simulate control" sid="848460920021666" type="spt_Player">
+                            <param id="0" name="Control">2</param>
+                        </action>
+                        <action id="4" name="Set animation" sid="352666856504305" type="spt_Player">
+                            <param id="0" name="Animation">&quot;pulo&quot;</param>
+                            <param id="1" name="From">1</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="547210030704600">
+                    <conditions>
+                        <condition behavior="Platform" id="0" inverted="1" name="Is moving" sid="990498444317241" type="spt_Player" />
+                    </conditions>
+                    <actions>
+                        <action id="4" name="Set animation" sid="724152908162334" type="spt_Player">
+                            <param id="0" name="Animation">&quot;parado&quot;</param>
+                            <param id="1" name="From">1</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-group description="" sid="964314405250587" title="controlesPlayerTeclado">
+            <sub-events>
+                <event-block sid="841855805080895">
+                    <conditions>
+                        <condition behavior="Platform" id="0" name="Is moving" sid="250214145878342" type="spt_Player" />
+                        <condition behavior="Platform" id="2" name="Is on floor" sid="846222593539345" type="spt_Player" />
+                    </conditions>
+                    <actions>
+                        <action id="4" name="Set animation" sid="988694567412495" type="spt_Player">
+                            <param id="0" name="Animation">&quot;correndo&quot;</param>
+                            <param id="1" name="From">1</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="145941830166779">
+                    <conditions>
+                        <condition behavior="Platform" id="0" inverted="1" name="Is moving" sid="100101841742518" type="spt_Player" />
+                        <condition behavior="Platform" id="2" name="Is on floor" sid="247883660803447" type="spt_Player" />
+                    </conditions>
+                    <actions>
+                        <action id="4" name="Set animation" sid="999920351316850" type="spt_Player">
+                            <param id="0" name="Animation">&quot;parado&quot;</param>
+                            <param id="1" name="From">1</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="229680154820011">
+                    <conditions>
+                        <condition behavior="Platform" id="3" name="Is jumping" sid="300055159703324" type="spt_Player" />
+                    </conditions>
+                    <actions>
+                        <action id="4" name="Set animation" sid="587131358234691" type="spt_Player">
+                            <param id="0" name="Animation">&quot;pulo&quot;</param>
+                            <param id="1" name="From">1</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="814201520452453">
+                    <conditions>
+                        <condition id="0" name="On key pressed" sid="525436708772317" type="Keyboard">
+                            <param id="0" name="Key">39</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="7" name="Set mirrored" sid="320647071106071" type="spt_Player">
+                            <param id="0" name="State">1</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="495730119327901">
+                    <conditions>
+                        <condition id="0" name="On key pressed" sid="552301636950866" type="Keyboard">
+                            <param id="0" name="Key">37</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="7" name="Set mirrored" sid="715831846772889" type="spt_Player">
+                            <param id="0" name="State">0</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-group description="" sid="456366762083424" title="eventosContador">
+            <sub-events>
+                <event-block sid="624604624749428">
+                    <conditions>
+                        <condition id="-1" name="Every tick" sid="432034302397031" type="System" />
+                    </conditions>
+                    <actions>
+                        <action id="0" name="Set text" sid="759855697286452" type="txt_Contador">
+                            <param id="0" name="Text">garrafas</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="951411828425890">
+                    <conditions>
+                        <condition id="0" name="On collision with another object" sid="806517830041432" type="spt_Player">
+                            <param id="0" name="Object">spt_Garrafa</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-9" name="Destroy" sid="503243283900153" type="spt_Garrafa" />
+                        <action id="-10" name="Add to" sid="551227520957580" type="System">
+                            <param id="0" name="Variable">garrafas</param>
+                            <param id="1" name="Value">1</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-group description="" sid="532621903694297" title="eventosInimigos">
+            <sub-events>
+                <event-block sid="414388519190269">
+                    <conditions>
+                        <condition id="-7" name="Compare instance variable" sid="677856096511751" type="spt_Porco">
+                            <param id="0" name="Instance variable">inst_Direcao</param>
+                            <param id="1" name="Comparison">0</param>
+                            <param id="2" name="Value">&quot;left&quot;</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action behavior="Platform" id="7" name="Simulate control" sid="795045562089687" type="spt_Porco">
+                            <param id="0" name="Control">0</param>
+                        </action>
+                        <action id="7" name="Set mirrored" sid="308064146465538" type="spt_Porco">
+                            <param id="0" name="State">1</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="575622805889452">
+                    <conditions>
+                        <condition id="-7" name="Compare instance variable" sid="129325901336507" type="spt_Porco">
+                            <param id="0" name="Instance variable">inst_Direcao</param>
+                            <param id="1" name="Comparison">0</param>
+                            <param id="2" name="Value">&quot;right&quot;</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action behavior="Platform" id="7" name="Simulate control" sid="917365824762416" type="spt_Porco">
+                            <param id="0" name="Control">1</param>
+                        </action>
+                        <action id="7" name="Set mirrored" sid="882737996639215" type="spt_Porco">
+                            <param id="0" name="State">0</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="333010789685186">
+                    <conditions>
+                        <condition id="0" name="On collision with another object" sid="930085976797430" type="spt_Porco">
+                            <param id="0" name="Object">spt_Limite</param>
+                        </condition>
+                    </conditions>
+                    <actions />
+                    <sub-events>
+                        <event-block sid="155616205958686">
+                            <conditions>
+                                <condition id="-7" name="Compare instance variable" sid="174417745568429" type="spt_Porco">
+                                    <param id="0" name="Instance variable">inst_Direcao</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">&quot;left&quot;</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-10" name="Set value" sid="742986854814665" type="spt_Porco">
+                                    <param id="0" name="Instance variable">inst_Direcao</param>
+                                    <param id="1" name="Value">&quot;right&quot;</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="362740654856490">
+                            <conditions>
+                                <condition id="-22" name="Else" sid="842270697959277" type="System" />
+                            </conditions>
+                            <actions>
+                                <action id="-10" name="Set value" sid="312927496284753" type="spt_Porco">
+                                    <param id="0" name="Instance variable">inst_Direcao</param>
+                                    <param id="1" name="Value">&quot;left&quot;</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+                <event-block sid="991153876710477">
+                    <conditions>
+                        <condition id="-7" name="Compare instance variable" sid="840821260511026" type="spt_Cavalo">
+                            <param id="0" name="Instance variable">inst_Direcao</param>
+                            <param id="1" name="Comparison">0</param>
+                            <param id="2" name="Value">&quot;left&quot;</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action behavior="Platform" id="7" name="Simulate control" sid="300228643060084" type="spt_Cavalo">
+                            <param id="0" name="Control">0</param>
+                        </action>
+                        <action id="7" name="Set mirrored" sid="331295523907851" type="spt_Cavalo">
+                            <param id="0" name="State">1</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="557292489054708">
+                    <conditions>
+                        <condition id="-7" name="Compare instance variable" sid="479511840455237" type="spt_Cavalo">
+                            <param id="0" name="Instance variable">inst_Direcao</param>
+                            <param id="1" name="Comparison">0</param>
+                            <param id="2" name="Value">&quot;right&quot;</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action behavior="Platform" id="7" name="Simulate control" sid="620376606884012" type="spt_Cavalo">
+                            <param id="0" name="Control">1</param>
+                        </action>
+                        <action id="7" name="Set mirrored" sid="328952179841881" type="spt_Cavalo">
+                            <param id="0" name="State">0</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="242621772283107">
+                    <conditions>
+                        <condition id="0" name="On collision with another object" sid="247971647463685" type="spt_Cavalo">
+                            <param id="0" name="Object">spt_Limite</param>
+                        </condition>
+                    </conditions>
+                    <actions />
+                    <sub-events>
+                        <event-block sid="972066553224514">
+                            <conditions>
+                                <condition id="-7" name="Compare instance variable" sid="608389677362584" type="spt_Cavalo">
+                                    <param id="0" name="Instance variable">inst_Direcao</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">&quot;left&quot;</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-10" name="Set value" sid="581562853924994" type="spt_Cavalo">
+                                    <param id="0" name="Instance variable">inst_Direcao</param>
+                                    <param id="1" name="Value">&quot;right&quot;</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="776735428965873">
+                            <conditions>
+                                <condition id="-22" name="Else" sid="854573728997449" type="System" />
+                            </conditions>
+                            <actions>
+                                <action id="-10" name="Set value" sid="262637170170413" type="spt_Cavalo">
+                                    <param id="0" name="Instance variable">inst_Direcao</param>
+                                    <param id="1" name="Value">&quot;left&quot;</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-group description="" sid="351101253993418" title="eventosBarraDeVida">
+            <sub-events>
+                <event-block sid="874991543708386">
+                    <conditions>
+                        <condition id="-1" name="Every tick" sid="734461420577767" type="System" />
+                    </conditions>
+                    <actions>
+                        <action id="5" name="Set frame" sid="174662134714541" type="spt_barraDeVida">
+                            <param id="0" name="Frame number">vidas</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="740455944813326">
+                    <conditions>
+                        <condition id="-14" name="Compare variable" sid="371701743731752" type="System">
+                            <param id="0" name="Variable">vidas</param>
+                            <param id="1" name="Comparison">0</param>
+                            <param id="2" name="Value">0</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-9" name="Set value" sid="632043276261915" type="System">
+                            <param id="0" name="Variable">vidas</param>
+                            <param id="1" name="Value">3</param>
+                        </action>
+                        <action id="-9" name="Set value" sid="811846467389196" type="System">
+                            <param id="0" name="Variable">garrafas</param>
+                            <param id="1" name="Value">0</param>
+                        </action>
+                        <action id="-2" name="Go to layout" sid="232378728730689" type="System">
+                            <param id="0" name="Layout">Pomar</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="553351592667630">
+                    <conditions>
+                        <condition id="0" name="On collision with another object" sid="388074836332090" type="spt_Player">
+                            <param id="0" name="Object">spt_Porco</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-11" name="Subtract from" sid="767577886212474" type="System">
+                            <param id="0" name="Variable">vidas</param>
+                            <param id="1" name="Value">1</param>
+                        </action>
+                    </actions>
+                    <sub-events>
+                        <event-block sid="318235500702129">
+                            <conditions>
+                                <condition id="-14" name="Compare variable" sid="817323681448095" type="System">
+                                    <param id="0" name="Variable">vidas</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">0</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-2" name="Go to layout" sid="546560985332346" type="System">
+                                    <param id="0" name="Layout">Pomar</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+                <event-block sid="298956497449844">
+                    <conditions>
+                        <condition id="0" name="On collision with another object" sid="901425487036562" type="spt_Player">
+                            <param id="0" name="Object">spt_Cavalo</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-11" name="Subtract from" sid="555735638785402" type="System">
+                            <param id="0" name="Variable">vidas</param>
+                            <param id="1" name="Value">1</param>
+                        </action>
+                    </actions>
+                    <sub-events>
+                        <event-block sid="114136334703870">
+                            <conditions>
+                                <condition id="-14" name="Compare variable" sid="666279573088031" type="System">
+                                    <param id="0" name="Variable">vidas</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">0</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-2" name="Go to layout" sid="378657720148300" type="System">
+                                    <param id="0" name="Layout">Pomar</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+                <event-block sid="459483593871446">
+                    <conditions>
+                        <condition id="0" name="On collision with another object" sid="546718493055634" type="spt_Player">
+                            <param id="0" name="Object">spt_Morte</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-11" name="Subtract from" sid="341889622893270" type="System">
+                            <param id="0" name="Variable">vidas</param>
+                            <param id="1" name="Value">3</param>
+                        </action>
+                        <action id="-26" name="Restart layout" sid="889257957469228" type="System" />
+                        <action id="-21" name="Reset global variables" sid="358669439671758" type="System" />
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-group>
+    </events>
+</c2eventsheet>

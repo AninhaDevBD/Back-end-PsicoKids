@@ -1,0 +1,667 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<c2eventsheet>
+    <!--All the 'name' attributes are ignored by Construct 2 - they are there for readability only.-->
+    <name>Programação</name>
+    <events>
+        <variable constant="0" name="Fase" sid="564862213700330" static="0" type="number">0</variable>
+        <variable constant="0" name="RetornoCadastroCrianca" sid="609386139645927" static="0" type="number">0</variable>
+        <variable constant="0" name="RetornoCadastroSenhaAcesso" sid="112397164159464" static="0" type="number">0</variable>
+        <variable constant="0" name="RetornoCadastro" sid="233438702039882" static="0" type="number">0</variable>
+        <variable constant="0" name="idUsuario" sid="712110702606353" static="0" type="number">0</variable>
+        <variable constant="0" name="RetornoLogin" sid="815097050546144" static="0" type="number">0</variable>
+        <event-group description="" sid="589345004310220" title="Login">
+            <sub-events>
+                <comment>Botão &quot;Voltar&quot;</comment>
+                <event-block bookmark="1" sid="462454819918704">
+                    <conditions>
+                        <condition id="4" name="Is touching object" sid="274034691441792" type="Touch">
+                            <param id="0" name="Object">btn_CadastrarL</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-2" name="Go to layout" sid="151461956983454" type="System">
+                            <param id="0" name="Layout">Cadastro</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <comment>Botão &quot;Esqueci minha senha&quot; que direciona o usuário para a tela de recuperação de senha</comment>
+                <event-block bookmark="1" sid="914111094640210">
+                    <conditions>
+                        <condition id="4" name="Is touching object" sid="480407301533130" type="Touch">
+                            <param id="0" name="Object">txt_EsqueciSenha</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-2" name="Go to layout" sid="603029463644695" type="System">
+                            <param id="0" name="Layout">RecuperaçãoSenha</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <comment>Ao clicar no botão entrar, os dados dos campos são comparados com os dados do banco através da URL inserida no AJAX, sendo criada uma Tag para nomear tal ação</comment>
+                <event-block sid="190188552651446">
+                    <conditions>
+                        <condition id="4" name="Is touching object" sid="750695184179309" type="Touch">
+                            <param id="0" name="Object">btn_EntrarL</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="0" name="Request URL" sid="782509496244220" type="AJAX">
+                            <param id="0" name="Tag">&quot;Login&quot;</param>
+                            <param id="1" name="URL">&quot;http://localhost/phpmyadmin/sql.php?db=bdpsicokids&amp;goto=db_structure.php&amp;table=responsavel&amp;pos=0email=&quot;&amp;txb_emailL.Text&amp; &quot;&amp;senhaEmail=&quot;&amp;txb_senhaL.Text</param>
+                        </action>
+                    </actions>
+                    <sub-events>
+                        <comment>Após feita a verificação, o resultado é retornado como tipo String e convertido para o tipo Int.</comment>
+                        <event-block sid="173129032591933">
+                            <conditions>
+                                <condition id="0" name="On completed" sid="824923320704387" type="AJAX">
+                                    <param id="0" name="Tag">&quot;Login&quot;</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-9" name="Set value" sid="100066881267679" type="System">
+                                    <param id="0" name="Variable">RetornoLogin</param>
+                                    <param id="1" name="Value">int(AJAX.LastData)</param>
+                                </action>
+                            </actions>
+                            <sub-events>
+                                <comment>Após a conversão do tipo dos dados, os mesmos passam pelas seguintes condições. Se o retorno da base de dados for maior que 0, o usuário tem registro e seu login está correto. Assim é direcionado para a próxima tela</comment>
+                                <event-block sid="383068142576384">
+                                    <conditions>
+                                        <condition id="-14" name="Compare variable" sid="805222548097088" type="System">
+                                            <param id="0" name="Variable">RetornoLogin</param>
+                                            <param id="1" name="Comparison">4</param>
+                                            <param id="2" name="Value">0</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="-2" name="Go to layout" sid="784759964823137" type="System">
+                                            <param id="0" name="Layout">ConfiguraçãoResponsável</param>
+                                        </action>
+                                        <action id="-9" name="Set value" sid="471708294677689" type="System">
+                                            <param id="0" name="Variable">idUsuario</param>
+                                            <param id="1" name="Value">AJAX.LastData</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                                <comment>Caso o usuário não possua registro na base de dados ou seu login esteja incorreto, apareçe a mensagem de erro e os campos são limpos </comment>
+                                <event-block sid="310542329011296">
+                                    <conditions>
+                                        <condition id="-22" name="Else" sid="181693803732733" type="System" />
+                                    </conditions>
+                                    <actions>
+                                        <action id="0" name="Set text" sid="127274990145247" type="txt_MensagemRetornoL">
+                                            <param id="0" name="Text">&quot;Erro ao efetuar login&quot;</param>
+                                        </action>
+                                        <action id="0" name="Set text" sid="859648226256729" type="txb_emailL">
+                                            <param id="0" name="Text">&quot;&quot;</param>
+                                        </action>
+                                        <action id="0" name="Set text" sid="699657999074709" type="txb_senhaL">
+                                            <param id="0" name="Text">&quot;&quot;</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                            </sub-events>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-group description="" sid="130322491301983" title="Cadastro">
+            <sub-events>
+                <event-block sid="987103260159126">
+                    <conditions>
+                        <condition id="4" name="Is touching object" sid="453900046411207" type="Touch">
+                            <param id="0" name="Object">btn_VoltarCad</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-2" name="Go to layout" sid="938916086551900" type="System">
+                            <param id="0" name="Layout">Login</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="214715034188053">
+                    <conditions>
+                        <condition id="4" name="Is touching object" sid="499883018470214" type="Touch">
+                            <param id="0" name="Object">btn_CadastrarTCad</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="0" name="Request URL" sid="823142573429987" type="AJAX">
+                            <param id="0" name="Tag">&quot;Cadastro&quot;</param>
+                            <param id="1" name="URL">&quot;http://localhost/phpmyadmin/sql.php?db=bdpsicokids&amp;goto=db_structure.php&amp;table=responsavel&amp;pos=0nomeResponsavel=&quot;&amp;txb_nomeCad.Text&amp; &quot;&amp;telefone=&quot;&amp;txb_telefoneCad.Text&amp; &quot;&amp;email=&quot;&amp;txb_emailCad.Text&amp; &quot;&amp;senhaEmail=&quot;&amp;txb_senhaCad.Text</param>
+                        </action>
+                    </actions>
+                    <sub-events>
+                        <event-block sid="637705910304236">
+                            <conditions>
+                                <condition id="0" name="On completed" sid="944638375847337" type="AJAX">
+                                    <param id="0" name="Tag">&quot;Cadastro&quot;</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="0" name="Set text" sid="323815285672974" type="txt_MensagemCad">
+                                    <param id="0" name="Text">&quot;Usuário cadastrado com sucesso. Faça seu login&quot;</param>
+                                </action>
+                            </actions>
+                            <sub-events>
+                                <event-block sid="776305009752950">
+                                    <conditions>
+                                        <condition id="-14" name="Compare variable" sid="280168208520722" type="System">
+                                            <param id="0" name="Variable">RetornoCadastro</param>
+                                            <param id="1" name="Comparison">4</param>
+                                            <param id="2" name="Value">0</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="-9" name="Set value" sid="780764131203492" type="System">
+                                            <param id="0" name="Variable">idUsuario</param>
+                                            <param id="1" name="Value">AJAX.LastData</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                                <event-block sid="122652173623491">
+                                    <conditions>
+                                        <condition id="-22" name="Else" sid="412897239206343" type="System" />
+                                    </conditions>
+                                    <actions>
+                                        <action id="0" name="Set text" sid="996159222733539" type="txt_MensagemRetornoL">
+                                            <param id="0" name="Text">&quot;Erro ao efetuar login&quot;</param>
+                                        </action>
+                                        <action id="0" name="Set text" sid="863701717321489" type="txb_emailL">
+                                            <param id="0" name="Text">&quot;&quot;</param>
+                                        </action>
+                                        <action id="0" name="Set text" sid="219880429015396" type="txb_senhaL">
+                                            <param id="0" name="Text">&quot;&quot;</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                            </sub-events>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-group description="" sid="807210034619724" title="Recuperação de Senha">
+            <sub-events>
+                <event-block sid="539355763480776">
+                    <conditions>
+                        <condition id="4" name="Is touching object" sid="508164260661816" type="Touch">
+                            <param id="0" name="Object">btn_VoltarRecS</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-2" name="Go to layout" sid="643260708782769" type="System">
+                            <param id="0" name="Layout">Login</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-group description="" sid="202981462950442" title="Redefinição de Senha">
+            <sub-events>
+                <event-block sid="396970142309917">
+                    <conditions>
+                        <condition id="4" name="Is touching object" sid="604991909222043" type="Touch">
+                            <param id="0" name="Object">btn_VoltarRedS</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-2" name="Go to layout" sid="320079736415618" type="System">
+                            <param id="0" name="Layout">RecuperaçãoSenha</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-group description="" sid="796595103762866" title="Configuração do Responsável">
+            <sub-events>
+                <event-block sid="759576017963918">
+                    <conditions>
+                        <condition id="4" name="Is touching object" sid="318135810063520" type="Touch">
+                            <param id="0" name="Object">btn_ConfirmarCR</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="0" name="Request URL" sid="571666847936936" type="AJAX">
+                            <param id="0" name="Tag">&quot;CadastroSenhaAcesso&quot;</param>
+                            <param id="1" name="URL">&quot;http://localhost/phpmyadmin/sql.php?db=bdpsicokids&amp;goto=db_structure.php&amp;table=responsavel&amp;pos=0senhaAcesso=&quot;&amp;txb_senhaCR.Text</param>
+                        </action>
+                    </actions>
+                    <sub-events>
+                        <event-block sid="609955787623401">
+                            <conditions>
+                                <condition id="0" name="On completed" sid="804711007784603" type="AJAX">
+                                    <param id="0" name="Tag">&quot;CadastroSenhaAcesso&quot;</param>
+                                </condition>
+                            </conditions>
+                            <actions />
+                            <sub-events>
+                                <event-block sid="317396521681406">
+                                    <conditions>
+                                        <condition id="-14" name="Compare variable" sid="192255793005141" type="System">
+                                            <param id="0" name="Variable">RetornoCadastroSenhaAcesso</param>
+                                            <param id="1" name="Comparison">4</param>
+                                            <param id="2" name="Value">0</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="-9" name="Set value" sid="687543313822153" type="System">
+                                            <param id="0" name="Variable">idUsuario</param>
+                                            <param id="1" name="Value">AJAX.LastData</param>
+                                        </action>
+                                        <action id="-2" name="Go to layout" sid="479212069780408" type="System">
+                                            <param id="0" name="Layout">ConfiguraçãoCriança</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                                <event-block sid="171951783848718">
+                                    <conditions>
+                                        <condition id="-22" name="Else" sid="911159604495750" type="System" />
+                                    </conditions>
+                                    <actions>
+                                        <action id="0" name="Set text" sid="641525492680487" type="txt_MensagemRetornoL">
+                                            <param id="0" name="Text">&quot;Erro ao cadastrar senha de acesso&quot;</param>
+                                        </action>
+                                        <action id="0" name="Set text" sid="970452088215734" type="txb_emailL">
+                                            <param id="0" name="Text">&quot;&quot;</param>
+                                        </action>
+                                        <action id="0" name="Set text" sid="726260995425584" type="txb_senhaL">
+                                            <param id="0" name="Text">&quot;&quot;</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                            </sub-events>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-group description="" sid="672614777438998" title="Configuração da Criança">
+            <sub-events>
+                <event-block sid="906314854552129">
+                    <conditions>
+                        <condition id="4" name="Is touching object" sid="690370582341616" type="Touch">
+                            <param id="0" name="Object">btn_ConfirmarCC</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="0" name="Request URL" sid="940976535141617" type="AJAX">
+                            <param id="0" name="Tag">&quot;CadastroCrianca&quot;</param>
+                            <param id="1" name="URL">&quot;http://localhost/phpmyadmin/sql.php?db=bdpsicokids&amp;goto=db_structure.php&amp;table=crianca&amp;pos=0nomeCrianca=&quot;&amp;txb_NomeC.Text&amp; &quot;&amp;idade=&quot;&amp;txb_idadeC.Text&amp; &quot;&amp;serie=&quot;&amp;lst_serieC.SelectedText&amp; &quot;&amp;sexo=&quot;&amp;rdb_femininoC.BBoxBottom&amp;rdb_masculinoC.BBoxBottom</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-group description="" sid="262473205830538" title="Início">
+            <sub-events>
+                <event-block sid="765312455974406">
+                    <conditions>
+                        <condition id="4" name="Is touching object" sid="877914955456602" type="Touch">
+                            <param id="0" name="Object">btn_RelatorioTInicial</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-2" name="Go to layout" sid="564898156210740" type="System">
+                            <param id="0" name="Layout">Verificação</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="302227058831513">
+                    <conditions>
+                        <condition id="4" name="Is touching object" sid="540148265460580" type="Touch">
+                            <param id="0" name="Object">btn_AjustesTInicial</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-2" name="Go to layout" sid="310479284282163" type="System">
+                            <param id="0" name="Layout">Verificação</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-group description="" sid="100818994080600" title="Verificação">
+            <sub-events>
+                <event-block sid="575286060001827">
+                    <conditions>
+                        <condition id="4" name="Is touching object" sid="414040414287597" type="Touch">
+                            <param id="0" name="Object">btn_VoltarV</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-2" name="Go to layout" sid="929887161175688" type="System">
+                            <param id="0" name="Layout">Início</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <event-block sid="201051288595751">
+                    <conditions>
+                        <condition id="4" name="Is touching object" sid="196543745563789" type="Touch">
+                            <param id="0" name="Object">txt_EsqueciSenhaVer</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="-2" name="Go to layout" sid="314204461209102" type="System">
+                            <param id="0" name="Layout">RecuperaçãoSenha</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-group description="" sid="903705962008027" title="Menu do Responsável">
+            <sub-events>
+                <event-group description="" sid="429198444042642" title="Botões que direcionam para outras telas MR">
+                    <sub-events>
+                        <event-block sid="111620190352947">
+                            <conditions>
+                                <condition id="4" name="Is touching object" sid="582930488155998" type="Touch">
+                                    <param id="0" name="Object">btn_InicioMenuR</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-2" name="Go to layout" sid="113181234898879" type="System">
+                                    <param id="0" name="Layout">Início</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="945897575516337">
+                            <conditions>
+                                <condition id="4" name="Is touching object" sid="733745584069167" type="Touch">
+                                    <param id="0" name="Object">btn_JogarMenuR</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-2" name="Go to layout" sid="239291879750556" type="System">
+                                    <param id="0" name="Layout">Início</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="694463138248269">
+                            <conditions>
+                                <condition id="4" name="Is touching object" sid="753350533412949" type="Touch">
+                                    <param id="0" name="Object">btn_RelatorioMenuR</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-2" name="Go to layout" sid="265159085936731" type="System">
+                                    <param id="0" name="Layout">Relatório</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="680262858557107">
+                            <conditions>
+                                <condition id="4" name="Is touching object" sid="796004938066792" type="Touch">
+                                    <param id="0" name="Object">btn_VoltarMenuR</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-2" name="Go to layout" sid="274833532931749" type="System">
+                                    <param id="0" name="Layout">Verificação</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="433223437426035">
+                            <conditions>
+                                <condition id="4" name="Is touching object" sid="603707161055214" type="Touch">
+                                    <param id="0" name="Object">btn_DadosR</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-2" name="Go to layout" sid="297888870779363" type="System">
+                                    <param id="0" name="Layout">DadosResponsável</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="486314128911960">
+                            <conditions>
+                                <condition id="4" name="Is touching object" sid="724559561143349" type="Touch">
+                                    <param id="0" name="Object">btn_DadosC</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-2" name="Go to layout" sid="616522449996029" type="System">
+                                    <param id="0" name="Layout">DadosCrianças</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-group>
+                <event-block sid="341300149200170">
+                    <conditions>
+                        <condition id="4" name="Is touching object" sid="423765401235552" type="Touch">
+                            <param id="0" name="Object">btn_som</param>
+                        </condition>
+                    </conditions>
+                    <actions />
+                </event-block>
+                <event-block sid="228468762652443">
+                    <conditions>
+                        <condition id="4" name="Is touching object" sid="612601727389476" type="Touch">
+                            <param id="0" name="Object">btn_musica</param>
+                        </condition>
+                    </conditions>
+                    <actions />
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-group description="" sid="598611626040652" title="Dados do Responsável">
+            <sub-events>
+                <event-group description="" sid="735289387069158" title="Botões que direcionam para outras telas DR">
+                    <sub-events>
+                        <event-block sid="754181856219935">
+                            <conditions>
+                                <condition id="4" name="Is touching object" sid="464927969693274" type="Touch">
+                                    <param id="0" name="Object">btn_InicioDadosR</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-2" name="Go to layout" sid="161008866794065" type="System">
+                                    <param id="0" name="Layout">Início</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="378673903171557">
+                            <conditions>
+                                <condition id="4" name="Is touching object" sid="189812312903595" type="Touch">
+                                    <param id="0" name="Object">btn_JogarDadosR</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-2" name="Go to layout" sid="743900493855724" type="System">
+                                    <param id="0" name="Layout">Início</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="231639121690375">
+                            <conditions>
+                                <condition id="4" name="Is touching object" sid="698363332152315" type="Touch">
+                                    <param id="0" name="Object">btn_RelatorioDadosR</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-2" name="Go to layout" sid="366219589606605" type="System">
+                                    <param id="0" name="Layout">Relatório</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="775643350922466">
+                            <conditions>
+                                <condition id="4" name="Is touching object" sid="742754296365465" type="Touch">
+                                    <param id="0" name="Object">btn_VoltarDadosR</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-2" name="Go to layout" sid="857646476812525" type="System">
+                                    <param id="0" name="Layout">Verificação</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-group>
+                <event-block sid="659946223561113">
+                    <conditions>
+                        <condition id="4" name="Is touching object" sid="567036806514443" type="Touch">
+                            <param id="0" name="Object">btn_ConfirmarDadosR</param>
+                        </condition>
+                    </conditions>
+                    <actions />
+                </event-block>
+                <event-block sid="493724100024214">
+                    <conditions>
+                        <condition id="4" name="Is touching object" sid="918317602998227" type="Touch">
+                            <param id="0" name="Object">btn_CancelarDadosR</param>
+                        </condition>
+                    </conditions>
+                    <actions />
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-group description="" sid="395609731384477" title="Dados da criança">
+            <sub-events>
+                <event-group description="" sid="524542217825459" title="Botões que direcionam para outras telas DC">
+                    <sub-events>
+                        <event-block sid="941442512225555">
+                            <conditions>
+                                <condition id="4" name="Is touching object" sid="195648222318857" type="Touch">
+                                    <param id="0" name="Object">btn_VoltarDC</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-2" name="Go to layout" sid="157617268694297" type="System">
+                                    <param id="0" name="Layout">MenuResponsável</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="495979969113477">
+                            <conditions>
+                                <condition id="4" name="Is touching object" sid="963237128994057" type="Touch">
+                                    <param id="0" name="Object">btn_InicioDC</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-2" name="Go to layout" sid="618542433863572" type="System">
+                                    <param id="0" name="Layout">DadosCrianças</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="953553169789056">
+                            <conditions>
+                                <condition id="4" name="Is touching object" sid="656545225755249" type="Touch">
+                                    <param id="0" name="Object">btn_JogarDC</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-2" name="Go to layout" sid="740803061624411" type="System">
+                                    <param id="0" name="Layout">Início</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="720542144299939">
+                            <conditions>
+                                <condition id="4" name="Is touching object" sid="247605819094281" type="Touch">
+                                    <param id="0" name="Object">btn_RelatorioDC</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-2" name="Go to layout" sid="580029782090451" type="System">
+                                    <param id="0" name="Layout">Relatório</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-group>
+                <event-block sid="361817028364069">
+                    <conditions>
+                        <condition id="4" name="Is touching object" sid="477705436168474" type="Touch">
+                            <param id="0" name="Object">btn_ConfirmarDC</param>
+                        </condition>
+                    </conditions>
+                    <actions />
+                </event-block>
+                <event-block sid="371947150689219">
+                    <conditions>
+                        <condition id="4" name="Is touching object" sid="106032413240519" type="Touch">
+                            <param id="0" name="Object">btn_CancelarDC</param>
+                        </condition>
+                    </conditions>
+                    <actions />
+                </event-block>
+                <event-block sid="622504014504322">
+                    <conditions>
+                        <condition id="4" name="Is touching object" sid="783053775248782" type="Touch">
+                            <param id="0" name="Object">btn_ImagemDC</param>
+                        </condition>
+                    </conditions>
+                    <actions />
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-group description="" sid="822256736153161" title="Relatório">
+            <sub-events>
+                <event-group description="" sid="823142209809219" title="Botões que direcionam para outras telas R">
+                    <sub-events>
+                        <event-block sid="412483460656347">
+                            <conditions>
+                                <condition id="4" name="Is touching object" sid="980578567603583" type="Touch">
+                                    <param id="0" name="Object">btn_VoltarR</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-2" name="Go to layout" sid="425477152628890" type="System">
+                                    <param id="0" name="Layout">MenuResponsável</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="139787043031898">
+                            <conditions>
+                                <condition id="4" name="Is touching object" sid="575244790266550" type="Touch">
+                                    <param id="0" name="Object">btn_InicioR</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-2" name="Go to layout" sid="326844854977388" type="System">
+                                    <param id="0" name="Layout">DadosCrianças</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="772489347091456">
+                            <conditions>
+                                <condition id="4" name="Is touching object" sid="274909295274844" type="Touch">
+                                    <param id="0" name="Object">btn_JogarR</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-2" name="Go to layout" sid="202808680700185" type="System">
+                                    <param id="0" name="Layout">Início</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="976743379676637">
+                            <conditions>
+                                <condition id="4" name="Is touching object" sid="610041797340208" type="Touch">
+                                    <param id="0" name="Object">btn_AjustesR</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-2" name="Go to layout" sid="987495069369188" type="System">
+                                    <param id="0" name="Layout">MenuResponsável</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-group>
+                <event-block sid="361701501040943">
+                    <conditions>
+                        <condition id="4" name="Is touching object" sid="692336063481785" type="Touch">
+                            <param id="0" name="Object">btn_ImagemDC</param>
+                        </condition>
+                    </conditions>
+                    <actions />
+                </event-block>
+            </sub-events>
+        </event-group>
+    </events>
+</c2eventsheet>
