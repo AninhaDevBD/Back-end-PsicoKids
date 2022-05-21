@@ -1,7 +1,10 @@
 <?php
 
-    use PHPMailer\PHPMailer\PHPMailer;
-    use PHPMailer\PHPMailer\Exception;
+    require 'path/to/PHPMailer/src/Exception.php';
+    require 'path/to/PHPMailer/src/PHPMailer.php';
+    require 'path/to/PHPMailer/src/SMTP.php';
+    require 'lib/vendor/autoload.php';
+
     include_once "Model/responsavel.php";
     
     // Permissão para que ambientes externos acessem a configuração de conexão com o banco
@@ -79,10 +82,19 @@
                 {
                     $responsavel->idResponsavel = $_GET["idResponsavel"];
                     $responsavel->email = $_GET["email"];
-                    //$responsavel->email = new PHPMailer(true);
+                    $responsavel->email = new PHPMailer(true);
 
                     try
                     {
+                        //Server settings
+                        $responsavel->email->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+                        $responsavel->email->isSMTP();                                            //Send using SMTP
+                        $responsavel->email->Host       = 'localhost';                     //Set the SMTP server to send through
+                        $responsavel->email->SMTPAuth   = true;                                   //Enable SMTP authentication
+                        $responsavel->email->Username   = 'root';                     //SMTP username
+                        $responsavel->email->Password   = '';                               //SMTP password
+                        $responsavel->email->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+                        $responsavel->email->Port       = 3306;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
                         
                     }
                     catch (Exception $erro)
