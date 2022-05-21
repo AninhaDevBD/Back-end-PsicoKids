@@ -13,6 +13,7 @@
         private $senhaEmail;
         private $senhaAcesso;
         private $idCrianca;
+        private $codigoVerificacao;
         
         // Métodos mágicos
         function __get($atributo)

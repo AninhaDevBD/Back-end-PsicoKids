@@ -82,31 +82,42 @@
                 {
                     $responsavel->idResponsavel = $_GET["idResponsavel"];
                     $responsavel->email = $_GET["email"];
+
                     $responsavel->email = new PHPMailer(true);
 
                     try
                     {
                         //Server settings
-                        $responsavel->email->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
-                        $responsavel->email->isSMTP();                                            //Send using SMTP
-                        $responsavel->email->Host       = 'localhost';                     //Set the SMTP server to send through
-                        $responsavel->email->SMTPAuth   = true;                                   //Enable SMTP authentication
-                        $responsavel->email->Username   = 'root';                     //SMTP username
-                        $responsavel->email->Password   = '';                               //SMTP password
-                        $responsavel->email->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-                        $responsavel->email->Port       = 3306;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+                        $responsavel->email->CharSet = "UTF-8";
+                        $responsavel->email->isSMTP();                                   //Send using SMTP
+                        $responsavel->email->Host       = 'localhost:8080';              //Set the SMTP server to send through
+                        $responsavel->email->SMTPAuth   = true;                          //Enable SMTP authentication
+                        $responsavel->email->Username   = 'root';                        //SMTP username
+                        $responsavel->email->Password   = '';                            //SMTP password
+                        $responsavel->email->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;   //Enable implicit TLS encryption
+                        $responsavel->email->Port       = 3306;                          //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
                         
+                        //Recipients
+                        $responsavel->email->setFrom('PsicoKids@gmail.com', 'Equipe PsicoKids');
+                        $responsavel->email->addAddress($responsavel->email["email"], $responsavel->nome["nomeResponsavel"]);     //Add a recipient
+
+                        //Content
+                        $responsavel->email->isHTML(true);                                  //Set email format to HTML
+                        $responsavel->email->Subject = 'Recuperação de senha';
+                        $responsavel->email->Body    = "Olá" . $responsavel->email["email"];
+                        $responsavel->email->AltBody = "Para redefinir sua senha de login em sua conta PsicoKids, copie e cole este código de confirmação: ";
+                        // Não esquecer de implementar chave.    
+
+                        $responsavel->email->send();
+
+                        $retorna = ['erro' => false];
                     }
+
                     catch (Exception $erro)
                     {
                         //throw $th;
                     }
-                }
-
-                else
-                {
-                    $dadosResponsavel == $responsavel->telefone;
-                }
+                }    
             }
         }
 
