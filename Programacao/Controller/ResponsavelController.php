@@ -83,6 +83,8 @@
                     $responsavel->idResponsavel = $_GET["idResponsavel"];
                     $responsavel->email = $_GET["email"];
 
+                    $responsavel->codigoVerificacao = rand() % 9000 + 1000;
+
                     $responsavel->email = new PHPMailer(true);
 
                     try
@@ -105,8 +107,9 @@
                         $responsavel->email->isHTML(true);                                  //Set email format to HTML
                         $responsavel->email->Subject = 'Recuperação de senha';
                         $responsavel->email->Body    = "Olá" . $responsavel->email["email"];
-                        $responsavel->email->AltBody = "Para redefinir sua senha de login em sua conta PsicoKids, copie e cole este código de confirmação: ";
-                        // Não esquecer de implementar chave.    
+                        $responsavel->email->AltBody = "Para redefinir sua senha de login em sua conta PsicoKids, copie e cole este código de confirmação: <br>" .$responsavel->codigoVerificacao;
+                        // Chave para verificar se o usuário verificou o email
+                        
 
                         $responsavel->email->send();
 

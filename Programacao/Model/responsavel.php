@@ -14,6 +14,7 @@
         private $senhaAcesso;
         private $idCrianca;
         private $codigoVerificacao;
+        private $chave;
         
         // Métodos mágicos
         function __get($atributo)
@@ -113,7 +114,7 @@
         {
             $conexao = Conexao::Conectar();
 
-            
+            // Colocar código no banco de dados
         }
 
         function Logar()
