@@ -37,7 +37,7 @@ header('Access-Control-Allow-Origin: *');
         {
             $conexao = Conexao::Conectar(); //Retornar conexão
 
-            // Preparar comando SQL para cadastrar
+            // Preparando comando SQL para cadastrar
             $cmd = $conexao->prepare("INSERT INTO crianca (nomeCrianca, idade, serie, sexo, avaliacao, nivel, imagemPerfil) VALUES (:nomeCrianca,
             :idade, :serie, :sexo, :avaliacao, :nivel, :imagemPerfil)");
         

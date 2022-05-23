@@ -14,7 +14,6 @@
         private $senhaAcesso;
         private $idCrianca;
         private $codigoVerificacao;
-        private $chave;
         
         // Métodos mágicos
         function __get($atributo)
@@ -73,6 +72,7 @@
             return $cmd->fetchAll(PDO::FETCH_OBJ);
         }
 
+        // Após a consulta ao banco dos dados gerais, é selecionado apenas os dados que devem ser retornados ao usuário
         function Retornar()
         {
             $conexao = Conexao::Conectar();
@@ -128,6 +128,7 @@
             return $cmd->fetch(PDO::FETCH_OBJ);
         }
 
+        // Método de acesso a tela principal
         function Acessar()
         {
             $conexao = Conexao::Conectar();
