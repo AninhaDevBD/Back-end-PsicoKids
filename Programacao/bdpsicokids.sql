@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: 19-Maio-2022 às 06:33
+-- Generation Time: 22-Maio-2022 às 21:57
 -- Versão do servidor: 5.6.34
 -- PHP Version: 7.1.11
 
@@ -22,6 +22,33 @@ SET time_zone = "+00:00";
 -- Database: `bdpsicokids`
 --
 
+DELIMITER $$
+--
+-- Procedures
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spAtualizaCrianca` (IN `spnomeCrianca` VARCHAR(100), IN `spidade` INT(11), IN `spserie` INT(11), IN `spsexo` VARCHAR(10), IN `spimagemPerfil` VARCHAR(50))  UPDATE crianca SET nomeCrianca = spnome, idade = spidade, serie = spserie, sexo = spsexo, imagemPerfil = spimagemPerfil
+    WHERE idCrianca = spidCrianca$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spAtualizaResponsavel` (IN `nomeResponsavel` VARCHAR(90), `telefone` VARCHAR(15), `email` VARCHAR(100), `senhaEmail` VARCHAR(20))  BEGIN
+    UPDATE responsavel SET nomeResponsavel = spnomeResponsavel, telefone = sptelefone, email = spemail, senhaEmail = spsenhaEmail
+    WHERE idResponsavel = spidResponsavel;
+    END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spCadastraCrianca` (IN `nomeCrianca` VARCHAR(100), IN `idade` INT(11), IN `serie` INT(11), IN `sexo` VARCHAR(10), IN `avaliacao` VARCHAR(10), IN `nivel` INT(11), IN `imagemPerfil` VARCHAR(50))  INSERT INTO crianca (nomeCrianca, idade, serie, sexo, avaliacao, nivel, imagemPerfil) 
+    VALUES (nomeCrianca = spnomeCrianca, idade = spidade, serie = spserie, sexo = spsexo, avaliacao = spavaliacao, nivel = spnivel, imagemPerfil = spimagemPerfil)$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spCadastraResponsavel` (IN `nomeResponsavel` VARCHAR(90), IN `telefone` VARCHAR(15), IN `email` VARCHAR(100), IN `senhaEmail` VARCHAR(20), IN `senhaAcesso` INT(6), IN `nivelacesso` INT)  BEGIN
+    INSERT INTO responsavel (nomeResponsavel, telefone, email, senhaEmail, senhaAcesso,
+                             nivelacesso) 
+    VALUES (nomeResponsavel, telefone, email, senhaEmail, senhaAcesso, nivelacesso);    
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spConsultaCrianca` (IN `nomeCrianca` VARCHAR(100), IN `idade` INT(11), IN `serie` INT(11), IN `sexo` VARCHAR(10), IN `imagemPerfil` VARCHAR(50))  SELECT idCrianca, nomeCrianca, idade, serie, sexo, imagemPerfil FROM crianca$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spConsultaResponsavel` (IN `nomeResponsavel` VARCHAR(90), IN `telefone` VARCHAR(15), IN `email` VARCHAR(100), IN `senhaEmail` VARCHAR(20))  SELECT idResponsavel, nomeResponsavel, telefone, email FROM responsavel$$
+
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -36,8 +63,7 @@ CREATE TABLE `crianca` (
   `sexo` varchar(10) NOT NULL,
   `avaliacao` varchar(10) NOT NULL,
   `nivel` int(11) NOT NULL,
-  `imagemPerfil` varchar(50) NOT NULL,
-  `garrafas` int(11) NOT NULL
+  `imagemPerfil` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -52,7 +78,7 @@ CREATE TABLE `responsavel` (
   `telefone` varchar(15) NOT NULL,
   `email` varchar(100) NOT NULL,
   `senhaEmail` varchar(20) NOT NULL,
-  `senhaAcesso` int(6) NOT NULL,
+  `senhaAcesso` int(6) NULL,
   `idCrianca` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -103,79 +129,3 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-
-/* Storad procedure */
-DELIMITER //
-CREATE PROCEDURE spCadastraCrianca 
-(
-    IN 
-    nomeCrianca VARCHAR(100),
-  	idade INT(11) NOT NULL,
-  	serie INT(11) NOT NULL,
-  	sexo VARCHAR(10) NOT NULL,
-  	avaliacao VARCHAR(10) NOT NULL,
-  	nivel INT(11) NOT NULL,
-  	imagemPerfil VARCHAR(50) NOT NULL
-)
-BEGIN
-    INSERT INTO crianca (nomeCrianca, idade, serie, sexo, avaliacao, nivel, imagemPerfil) 
-    VALUES (nomeCrianca, idade, serie, sexo, avaliacao, nivel, imagemPerfil);
-    
-CREATE PROCEDURE spAtualizaCrianca
-(
-    IN
-    nomeCrianca VARCHAR(100) NOT NULL,
-    idade INT(11) NOT NULL,
-    serie INT(11) NOT NULL,
-    sexo VARCHAR(10) NOT NULL,
-    imagemPerfil VARCHAR(50) NOT NULL    
-)
-BEGIN
-    UPDATE crianca SET nomeCrianca = :nome, idade = :idade, serie = :serie, sexo = :sexo, imagemPerfil = :imagemPerfil
-    WHERE idCrianca = :idCrianca
-
-CREATE PROCEDURE spConsultaCrianca
-(
-    IN
-    nomeCrianca VARCHAR(100) NOT NULL,
-    idade INT(11) NOT NULL,
-    serie INT(11) NOT NULL,
-    sexo VARCHAR(10) NOT NULL,
-    imagemPerfil VARCHAR(50) NOT NULL
-)
-BEGIN
-    SELECT nomeCrianca, idade, serie, sexo, imagemPerfil WHERE idCrianca = idCrianca
-
-CREATE PROCEDURE spCadastraResponsavel
-(
-    IN
-    nomeResponsavel VARCHAR(90) NOT NULL,
-    telefone VARCHAR(15) NOT NULL,
-    email VARCHAR(100) NOT NULL,
-    senhaEmail VARCHAR(20) NOT NULL,
-    senhaAcesso INT(6) NOT NULL
-)
-BEGIN
-    INSERT INTO responsavel (nomeResponsavel, telefone, email, senhaEmail, senhaAcesso) VALUES (nomeResponsavel, telefone, email, senhaEmail, senhaAcesso)
-
-CREATE PROCEDURE spAtualizaResponsavel
-(
-    IN
-    nomeResponsavel VARCHAR(90) NOT NULL,
-    telefone VARCHAR(15) NOT NULL,
-    email VARCHAR(100) NOT NULL,
-    senhaEmail VARCHAR(20) NOT NULL
-)
-BEGIN
-    UPDATE responsavel SET nomeResponsavel = nomeResponsavel, telefone = telefone, email = email, senhaEmail = senhaEmail
-    WHERE idResponsavel = idResponsavel
-
-CREATE PROCEDURE spConsultaResponsavel
-(
-    IN
-
-)
-BEGIN
-    SELECT nomeResponsavel, telefone, email, senhaEmail WHERE idResponsavel = idResponsavel
-END //
