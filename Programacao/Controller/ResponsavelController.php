@@ -1,10 +1,10 @@
 <?php
 
     // Importando bibliotecas do PHPMailer
-    require 'path/to/PHPMailer/src/Exception.php';
-    require 'path/to/PHPMailer/src/PHPMailer.php';
-    require 'path/to/PHPMailer/src/SMTP.php';
-    require 'lib/autoload.php';
+    // require 'path/to/PHPMailer/src/Exception.php';
+    // require 'path/to/PHPMailer/src/PHPMailer.php';
+    // require 'path/to/PHPMailer/src/SMTP.php';
+    // require 'lib/autoload.php';
 
     include_once "Model/responsavel.php";
     
@@ -71,7 +71,7 @@
             //"Senha redefinida com sucesso" -> Setar mensagem no construct
         }
 
-        function RecuperarSenha()
+        /*function RecuperarSenha()
         {
             $responsavel = new Responsavel();
             $dadosResponsavel = $responsavel->RecuperarSenha();
@@ -128,7 +128,7 @@
                     
                 }    
             }
-        }
+        }*/
 
         function Logar()
         {

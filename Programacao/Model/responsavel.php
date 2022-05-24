@@ -13,7 +13,7 @@
         private $senhaEmail;
         private $senhaAcesso;
         private $idCrianca;
-        private $codigoVerificacao;
+        // private $codigoVerificacao;
         
         // Métodos mágicos
         function __get($atributo)
@@ -110,12 +110,12 @@
             $cmd->execute();
         }
 
-        function RecuperarSenha()
+        /*function RecuperarSenha()
         {
             $conexao = Conexao::Conectar();
 
             // Colocar código no banco de dados
-        }
+        }*/
 
         function Logar()
         {
