@@ -139,6 +139,17 @@
             $cmd->execute();
             return $cmd->fetch(PDO::FETCH_OBJ);
         }
+
+        function RetornarRelatorio()
+        {
+            $conexao = Conexao::Conectar();
+
+            $cmd = $conexao->prepare("SELECT avaliacao FROM crianca WHERE idCrianca = :idCrianca");
+            $cmd->bindParam(":idResponsavel", $this->idResponsavel);
+
+            $cmd->execute();
+            return $cmd->fetch(PDO::FETCH_OBJ);
+        }
 }
 
 ?>

@@ -172,6 +172,8 @@
 
             function RetornarRelatorio()
             {
+                $responsavel = new Responsavel();
+                $dadosResponsavel = $responsavel->RetornarRelatorio();
                 // O retorno deverá ser feito através do ID da crianca
             }
         }
