@@ -38,8 +38,7 @@ header('Access-Control-Allow-Origin: *');
             $conexao = Conexao::Conectar(); //Retornar conexão
 
             // Preparando comando SQL para cadastrar
-            $cmd = $conexao->prepare("INSERT INTO crianca (nomeCrianca, idade, serie, sexo, avaliacao, nivel, imagemPerfil) VALUES (:nomeCrianca,
-            :idade, :serie, :sexo, :avaliacao, :nivel, :imagemPerfil)");
+            $cmd = $conexao->prepare("CALL spCadastrarCriança (:nomeCrianca, :idade, :serie, :sexo, :avaliacao, :nivel, :imagemPerfil)");
         
             // Parâmetros SQL
             $cmd->bindParam(":nomeCrianca", $this->nome);
@@ -57,7 +56,15 @@ header('Access-Control-Allow-Origin: *');
         {
             $conexao = Conexao::Conectar();
 
-            $cmd = $conexao->prepare("SELECT * FROM crianca");
+            $cmd = $conexao->prepare("CALL spConsultaCrianca (:nomeCrianca, :idade, :serie, :sexo, :imagemPerfil)");
+
+            $cmd->bindParam(":nomeCrianca", $this->nome);
+            $cmd->bindParam(":idade", $this->idade);
+            $cmd->bindParam(":serie", $this->serie);
+            $cmd->bindParam(":sexo", $this->sexo);
+            $cmd->bindParam(":spimagemPerfil", $this->imagem);
+
+
             $cmd->execute();
             return $cmd->fetchAll(PDO::FETCH_OBJ);
         }
@@ -77,13 +84,11 @@ header('Access-Control-Allow-Origin: *');
         {
             $con = Conexao::Conectar();
 
-            $cmd = $con->prepare("UPDATE crianca SET nomeCrianca = :nome, idade = :idade, serie = :serie, sexo = :sexo, imagemPerfil = :imagemPerfil
-            WHERE idCrianca = :idCrianca");
+            $cmd = $con->prepare("CALL spAtualizaCrianca (:nomeCrianca, :idade, :serie, :sexo, :imagemPerfil)");
 
-            $cmd->bindParam(":idCrianca", $this->idCrianca);
             $cmd->bindParam(":nomeCrianca", $this->nome);
             $cmd->bindParam(":idade", $this->idade);
-            $cmd->bindParam(":serie", $this->senha);
+            $cmd->bindParam(":serie", $this->serie);
             $cmd->bindParam(":sexo", $this->sexo);
             $cmd->bindParam(":imagemPerfil", $this->imagemPerfil);
             $cmd->execute();
