@@ -38,8 +38,7 @@
             $conexao = Conexao::Conectar(); //Retornar conexão
 
             // Preparar comando SQL para cadastrar
-            $cmd = $conexao->prepare("INSERT INTO responsavel (nomeResponsavel, telefone, email, senhaEmail, senhaAcesso) VALUES (:nomeResponsavel,
-            :telefone, :email, :senhaEmail, :senhaAcesso)");
+            $cmd = $conexao->prepare("CALL spCadastrarResponsavel (:nomeResponsavel, :telefone, :email, :senhaEmail, :senhaAcesso)");
         
             // Parâmetros SQL
             $cmd->bindParam(":nomeResponsavel", $this->nome);
@@ -47,6 +46,13 @@
             $cmd->bindParam(":email", $this->email);
             $cmd->bindParam(":senhaEmail", $this->senhaEmail);
             
+            
+            $cmd1 = $this->email;
+            $cmd2 = $this->senhaEmail;
+            $dados = $cmd;
+            $cmd = $cmd1 + $cmd2 = $dados;
+            
+
             $cmd->execute(); // Executando o comando
         }
 
@@ -67,7 +73,14 @@
         {
             $conexao = Conexao::Conectar();
 
-            $cmd = $conexao->prepare("SELECT * FROM responsavel");
+            $cmd = $conexao->prepare("CALL spConsultaResponsavel (:nomeResponsavel, :telefone, :email, :senhaEmail)");
+
+             // Parâmetros SQL
+             $cmd->bindParam(":nomeResponsavel", $this->nome);
+             $cmd->bindParam(":telefone", $this->telefone);
+             $cmd->bindParam(":email", $this->email);
+             $cmd->bindParam(":senhaEmail", $this->senhaEmail);
+
             $cmd->execute();
             return $cmd->fetchAll(PDO::FETCH_OBJ);
         }
@@ -88,14 +101,12 @@
         {
             $conexao = Conexao::Conectar();
 
-            $cmd = $conexao->prepare("UPDATE responsavel SET nomeResponsavel = :nomeResponsavel, telefone = :telefone, email = :email, senhaEmail = :senhaEmail
-            WHERE idResponsavel = :idResponsavel");
-
-            $cmd->bindParam(":idResponsavel", $this->idResponsavel);
+            $cmd = $conexao->prepare("CALL spAtualizarResponsavel (:nomeResponsavel, :telefone, :email, :senhaEmail, :senhaAcesso)");
             $cmd->bindParam(":nomeResponsavel", $this->nome);
             $cmd->bindParam(":telefone", $this->telefone);
             $cmd->bindParam(":email", $this->email);
             $cmd->bindParam(":senhaEmail", $this->senhaEmail);
+            $cmd->bindParam(":senhaAcesso", $this->senhaEmail);
             $cmd->execute();
         }
 

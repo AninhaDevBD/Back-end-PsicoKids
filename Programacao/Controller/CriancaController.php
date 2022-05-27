@@ -19,7 +19,7 @@
             $crianca->nivel = $_GET["nivel"];
 
             // Upload de imagem de perfil
-            $nomeImagem = $_FILES ["imagemPerfil"]["name"];
+            $nomeImagem = $_FILES [":imagemPerfil"]["name"];
             $nomeTemporario = $_FILES ["imagem"]["tmp_name"];
 
             // Pegar a extensão do arquivo
@@ -49,7 +49,7 @@
             $crianca->sexo = $_GET["sexo"];
             $crianca->avaliacao = $_GET["avaliacao"];
             $crianca->nivel = $_GET["nivel"];
-            $crianca->imagem = $_GET["imagem"];
+            $crianca->imagem = $_GET["imagemPerfil"];
             $crianca->Atualizar();
 
             //"Dados atualizados com sucesso" Setar mensagem no construct
