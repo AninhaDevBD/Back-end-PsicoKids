@@ -46,6 +46,13 @@
             $cmd->bindParam(":email", $this->email);
             $cmd->bindParam(":senhaEmail", $this->senhaEmail);
             
+            
+            $cmd1 = $this->email;
+            $cmd2 = $this->senhaEmail;
+            $dados = $cmd;
+            $cmd = $cmd1 + $cmd2 = $dados;
+            
+
             $cmd->execute(); // Executando o comando
         }
 
