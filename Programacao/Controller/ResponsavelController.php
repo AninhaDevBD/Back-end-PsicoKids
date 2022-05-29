@@ -23,9 +23,18 @@
             $responsavel->telefone = $_GET["telefone"];
             $responsavel->email = $_GET["email"];
             $responsavel->senhaEmail = $_GET["senhaEmail"];
-            $responsavel->Cadastrar();
+            
+            if ($responsavel->Cadastrar())
+            {
+                //Usuário cadastrado. Usuário poderá fazer login
+                die("true")
+            }
 
-            //"Dados cadastrados com sucesso" -> Setar mensagem no construct
+            else
+            {
+                //Erro ao cadastrar.
+                die("false");
+            }
         }
 
         function CadastrarSenhaAcesso()
@@ -133,10 +142,15 @@
             {
                 if(password_verify($_GET["senhaEmail"], $dadosResponsavel->senhaEmail))
                 {
-                    $_GET["dadosResponsavel"] = $dadosResponsavel;
+                    //Usuário logado. Construct direcionará para a próxima tela"
+                    die("true");
                 }
 
-                // Se não, exibir a seguinte mensagem no Construct: "Usuário ou senha inválida!"
+                else
+                {
+                    //Exibir a seguinte mensagem no Construct: "Usuário ou senha inválida!"
+                    die("false");
+                }
             }
 
             function Acessar()
@@ -165,6 +179,8 @@
 
             function RetornarRelatorio()
             {
+                $responsavel = new Responsavel();
+                $dadosResponsavel = $responsavel->RetornarRelatorio();
                 // O retorno deverá ser feito através do ID da crianca
             }
         }
