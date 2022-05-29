@@ -1,13 +1,13 @@
-<?php
-
+    <?php
+    
     // Importando bibliotecas do PHPMailer
     // require 'path/to/PHPMailer/src/Exception.php';
     // require 'path/to/PHPMailer/src/PHPMailer.php';
     // require 'path/to/PHPMailer/src/SMTP.php';
     // require 'lib/autoload.php';
-
+    include_once "Model/conexaoBD.php";
     include_once "Model/responsavel.php";
-    
+    $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
     // Permissão para que ambientes externos acessem a configuração de conexão com o banco
     header('Access-Control-Allow-Origin: *');
 
@@ -21,9 +21,18 @@
             $responsavel->telefone = $_GET["telefone"];
             $responsavel->email = $_GET["email"];
             $responsavel->senhaEmail = $_GET["senhaEmail"];
-            $responsavel->Cadastrar();
+            
+            if ($responsavel->Cadastrar())
+            {
+                //Usuário cadastrado. Usuário poderá fazer login
+                die("true")
+            }
 
-            //"Dados cadastrados com sucesso" -> Setar mensagem no construct
+            else
+            {
+                //Erro ao cadastrar.
+                die("false");
+            }
         }
 
         function CadastrarSenhaAcesso()
@@ -130,6 +139,56 @@
             }
         }*/
 
+        function recuperarSenha()
+        {
+            if(!empty ($dados))
+            {
+                $query_Responsavel = "SELECT idResponsavel, nomeResponsavel, 
+                                        FROM responsavel
+                                        WHERE nomerResponsavel = :nomeResponsavel
+                                        LIMIT 1";
+                $result_Responsavel = $conexao->prepare($query_Responsavel);
+                $result_Responsavel->bindParam(':nomeResponsavel', $dados['nomeResponsavel'], PDO::PARAM_STR);
+                $result_Responsavel->execute(); 
+
+                if(($result_Responsavel) AND($result_Responsavel->rowCount() != 0))
+                {
+                    $row_responsavel = $result_Responsavel->fetch(PDO::FETCH_ASSOC);
+                    $chave_recuperar_senha = password_hash($row_responsavel["idResponsavel"], PASSWORD_DEFAULT);
+                   
+                    $query_update_resposavel = "UPDATE responsavel SET recuperaSenha = :recuperaSenha 
+                                                WHERE idResponsavel = :idResponsavel 
+                                                LIMIT 1";
+                    $result_update_responsavel = $conexao->prepare($query_update_resposavel);
+                    $result_Responsavel->bindParam(':recuperaSenha', $chave_recuperar_senha, PDO::PARAM_STR);
+                    $result_Responsavel->bindParam(':idResponsavel', $row_responsavel['idResponsavel'], PDO::PARAM_STR);
+
+                    if($result_update_responsavel->execute())
+                    {
+                        
+                    }
+                    else
+                    {
+                        $_SESSION['msg'] = "Erro: Usuário inválido";
+                    }
+
+                }
+                else
+                {
+                    $_SESSION['msg'] = "Erro: Usuário inválido";
+                }
+
+                if(isset($_SESSION['msg']))
+                {
+                    echo $_SESSION['msg'];
+                    unset($_SESSION['msg']);
+                }
+            }
+
+
+        }
+            
+            
         function Logar()
         {
             $responsavel = new Responsavel();
@@ -140,10 +199,15 @@
             {
                 if(password_verify($_GET["senhaEmail"], $dadosResponsavel->senhaEmail))
                 {
-                    $_GET["dadosResponsavel"] = $dadosResponsavel;
+                    //Usuário logado. Construct direcionará para a próxima tela"
+                    die("true");
                 }
 
-                // Se não, exibir a seguinte mensagem no Construct: "Usuário ou senha inválida!"
+                else
+                {
+                    //Exibir a seguinte mensagem no Construct: "Usuário ou senha inválida!"
+                    die("false");
+                }
             }
 
             function Acessar()
@@ -172,6 +236,8 @@
 
             function RetornarRelatorio()
             {
+                $responsavel = new Responsavel();
+                $dadosResponsavel = $responsavel->RetornarRelatorio();
                 // O retorno deverá ser feito através do ID da crianca
             }
         }

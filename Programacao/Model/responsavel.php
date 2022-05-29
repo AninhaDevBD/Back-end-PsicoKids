@@ -46,6 +46,13 @@
             $cmd->bindParam(":email", $this->email);
             $cmd->bindParam(":senhaEmail", $this->senhaEmail);
             
+            
+            $cmd1 = $this->email;
+            $cmd2 = $this->senhaEmail;
+            $dados = $cmd;
+            $cmd = $cmd1 + $cmd2 = $dados;
+            
+
             $cmd->execute(); // Executando o comando
         }
 
@@ -139,6 +146,17 @@
 
             $cmd = $conexao->prepare("SELECT * FROM responsavel WHERE senhaAcesso = :senhaAcesso");
             $cmd->bindParam(":senhaAcesso", $this->senhaAcesso);
+
+            $cmd->execute();
+            return $cmd->fetch(PDO::FETCH_OBJ);
+        }
+
+        function RetornarRelatorio()
+        {
+            $conexao = Conexao::Conectar();
+
+            $cmd = $conexao->prepare("SELECT avaliacao FROM crianca WHERE idCrianca = :idCrianca");
+            $cmd->bindParam(":idResponsavel", $this->idResponsavel);
 
             $cmd->execute();
             return $cmd->fetch(PDO::FETCH_OBJ);
