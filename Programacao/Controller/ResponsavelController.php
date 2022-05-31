@@ -1,17 +1,6 @@
-    <?php
+    <?php header('Access-Control-Allow-Origin: *');
     
-    // Importando bibliotecas do PHPMailer
-    // require 'path/to/PHPMailer/src/Exception.php';
-    // require 'path/to/PHPMailer/src/PHPMailer.php';
-    // require 'path/to/PHPMailer/src/SMTP.php';
-    // require 'lib/autoload.php';
-    
-    include_once "Model/conexaoBD.php";
     include_once "Model/responsavel.php";
-    $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-
-    // Permissão para que ambientes externos acessem a configuração de conexão com o banco
-    header('Access-Control-Allow-Origin: *');
 
     class ResponsavelController
     {
@@ -19,28 +8,17 @@
         {
             // Pegando os valores dos elementos do Construct através do $_GET
             $responsavel = new Responsavel();
-            $responsavel->nome = $_GET["nomeResponsavel"];
-            $responsavel->telefone = $_GET["telefone"];
-            $responsavel->email = $_GET["email"];
-            $responsavel->senhaEmail = $_GET["senhaEmail"];
-            
-            if ($responsavel->Cadastrar())
-            {
-                //Usuário cadastrado. Usuário poderá fazer login
-                die("true")
-            }
-
-            else
-            {
-                //Erro ao cadastrar.
-                die("false");
-            }
+            $responsavel->nome          = $_GET["nomeResponsavel"];
+            $responsavel->telefone      = $_GET["telefone"];
+            $responsavel->email         = $_GET["email"];
+            $responsavel->senhaEmail    = password_hash($_GET["senhaEmail"], PASSWORD_DEFAULT);
+            $responsavel->Cadastrar();
         }
 
         function CadastrarSenhaAcesso()
         {
             $responsavel = new Responsavel();
-            $responsavel->senhaAcesso = $_GET["senhaAcesso"];
+            $responsavel->senhaAcesso = password_hash($_GET["senhaAcesso"], PASSWORD_DEFAULT);
             $responsavel->CadastrarSenhaAcesso();
 
             //"Senha de acesso cadastrada com sucesso" -> Setar mensagem no construct
@@ -55,11 +33,11 @@
         function Atualizar()
         {
             $responsavel = new Responsavel();
-            $responsavel->idResponsavel = $_GET["idResponsavel"];
-            $responsavel->nome = $_GET["nomeResponsavel"];
-            $responsavel->telefone = $_GET["telefone"];
-            $responsavel->email = $_GET["email"];
-            $responsavel->senhaEmail = password_hash($_GET["senhaEmail"], PASSWORD_DEFAULT);
+            $responsavel->idResponsavel     = $_GET["idResponsavel"];
+            $responsavel->nome              = $_GET["nomeResponsavel"];
+            $responsavel->telefone          = $_GET["telefone"];
+            $responsavel->email             = $_GET["email"];
+            $responsavel->senhaEmail        = password_hash($_GET["senhaEmail"], PASSWORD_DEFAULT);
             $responsavel->Atualizar();
 
             //"Dados atualizados com sucesso" -> Setar mensagem no construct
@@ -75,14 +53,14 @@
         function RedefinirSenha()
         {
             $responsavel = new Responsavel();
-            $responsavel->idResponsavel = $_GET["idResponsavel"];
-            $responsavel->senhaEmail = password_hash($_GET["senhaEmail"], PASSWORD_DEFAULT);
+            $responsavel->idResponsavel     = $_GET["idResponsavel"];
+            $responsavel->senhaEmail        = password_hash($_GET["senhaEmail"], PASSWORD_DEFAULT);
             $responsavel->Atualizar();
 
             //"Senha redefinida com sucesso" -> Setar mensagem no construct
         }
 
-        function recuperarSenha()
+        /*function recuperarSenha()
         {
             if(!empty ($dados))
             {
@@ -129,7 +107,7 @@
             }
 
 
-        }
+        }*/
             
             
         function Logar()
@@ -140,16 +118,16 @@
 
             if($dadosResponsavel)
             {
-                if(password_verify($_GET["senhaEmail"], $dadosResponsavel->senhaEmail))
+                if($dadosResponsavel && password_verify($_GET["senhaEmail"], $dadosResponsavel->senhaEmail))
                 {
                     //Usuário logado. Construct direcionará para a próxima tela"
-                    die("true");
+                    echo "válido";
                 }
 
                 else
                 {
                     //Exibir a seguinte mensagem no Construct: "Usuário ou senha inválida!"
-                    die("false");
+                    echo "Não localizado";
                 }
             }
 
@@ -160,21 +138,16 @@
 
                 if($dadosResponsavel)
                 {
-                    if(password_verify($_GET["senhaAcesso"], $dadosResponsavel->senhaAcesso))
+                    if($dadosResponsavel && password_verify($_GET["senhaAcesso"], $dadosResponsavel->senhaAcesso))
                     {
-                        $_GET["dadosResponsavel"] = $dadosResponsavel;
+                        echo "válido";
                     }
 
                     else
                     {
-                        //"Senha de acesso inválida!"
+                        echo "Não localizado";
                     }
                 } 
-
-                else
-                {
-                //"Senha de acesso inválida!"
-                }   
             }
 
             function RetornarRelatorio()

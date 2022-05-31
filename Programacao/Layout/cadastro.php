@@ -6,7 +6,7 @@
     $nome = $_GET['nome'];
     $telefone = $_GET['telefone'];
     $email = $_GET['email'];
-    $senhaEmail = $_GET['senhaEmail'];
+    $senhaEmail = password_hash($_GET['senhaEmail'], PASSWORD_DEFAULT);
 
        // Se e-mail já estiver registrado no banco, setar mensagem -> "E-mail já cadastrado"
        if($email = ":email")
