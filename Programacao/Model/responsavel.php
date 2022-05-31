@@ -82,7 +82,7 @@
             $cmd->execute();
         }
 
-        function RedefinirSenha()
+        function RedefineSenha()
         {
             $conexao = Conexao::Conectar();
 

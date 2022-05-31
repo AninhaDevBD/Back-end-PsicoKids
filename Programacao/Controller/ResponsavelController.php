@@ -50,7 +50,7 @@
             $dadosResponsavel = $responsavel->Retornar(); // Retornar dados com base no Id
         }
 
-        function RedefinirSenha()
+        function RedefineSenha()
         {
             $responsavel = new Responsavel();
             $responsavel->idResponsavel     = $_GET["idResponsavel"];
