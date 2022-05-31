@@ -93,4 +93,18 @@ header('Access-Control-Allow-Origin: *');
             $cmd->bindParam(":imagemPerfil", $this->imagemPerfil);
             $cmd->execute();
         }
+
+        function RetornarRelatorio()
+        {
+
+            
+            $conexao = Conexao::Conectar();
+
+
+            $cmd = $conexao->prepare("SELECT * FROM crianca WHERE avaliacao = :avaliacao");
+
+            $cmd->bindParam(":avaliacao", $this->avaliacao);
+            $cmd->execute();
+            return $cmd->fetch(PDO::FETCH_OBJ);
+        }
     }
