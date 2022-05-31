@@ -1,7 +1,4 @@
-<?php
-
-    // Permissão para que ambientes externos acessem a configuração de conexão com o banco e as classes
-    header('Access-Control-Allow-Origin: *');
+<?php header('Access-Control-Allow-Origin: *');
 
     class Responsavel
     {
@@ -13,7 +10,6 @@
         private $senhaEmail;
         private $senhaAcesso;
         private $idCrianca;
-        // private $codigoVerificacao;
         
         // Métodos mágicos
         function __get($atributo)
@@ -42,10 +38,11 @@
         
             // Parâmetros SQL
             $cmd->bindParam(":nomeResponsavel", $this->nome);
-            $cmd->bindParam(":telefone", $this->telefone);
-            $cmd->bindParam(":email", $this->email);
-            $cmd->bindParam(":senhaEmail", $this->senhaEmail);
+            $cmd->bindParam(":telefone",        $this->telefone);
+            $cmd->bindParam(":email",           $this->email);
+            $cmd->bindParam(":senhaEmail",      $this->senhaEmail);
             
+<<<<<<< HEAD
             $dados = "";
             $cmd1 = $this->email;
             $cmd2 = $this->senhaEmail;
@@ -53,8 +50,13 @@
             
 
             $cmd->execute(); // Executando o comando
+=======
+            $cmd->execute(); //executando o comando SQL
+>>>>>>> bca032412f2912f573597f33f441acfce07710bd
         }
 
+        
+        // Não esquecer de perguntar sobre
         function CadastrarSenhaAcesso()
         {
             $conexao = Conexao::Conectar(); //Retornar conexão
@@ -73,18 +75,34 @@
             $conexao = Conexao::Conectar();
 
             $cmd = $conexao->prepare("CALL spConsultaResponsavel (:nomeResponsavel, :telefone, :email, :senhaEmail)");
-
-             // Parâmetros SQL
-             $cmd->bindParam(":nomeResponsavel", $this->nome);
-             $cmd->bindParam(":telefone", $this->telefone);
-             $cmd->bindParam(":email", $this->email);
-             $cmd->bindParam(":senhaEmail", $this->senhaEmail);
-
             $cmd->execute();
             return $cmd->fetchAll(PDO::FETCH_OBJ);
         }
 
-        // Após a consulta ao banco dos dados gerais, é selecionado apenas os dados que devem ser retornados ao usuário
+        function Atualizar()
+        {
+            $conexao = Conexao::Conectar();
+
+            $cmd = $conexao->prepare("CALL spAtualizarResponsavel (:nomeResponsavel, :telefone, :email, :senhaEmail)");
+
+            $cmd->bindParam(":nomeResponsavel", $this->nome);
+            $cmd->bindParam(":telefone",        $this->telefone);
+            $cmd->bindParam(":email",           $this->email);
+            $cmd->bindParam(":senhaEmail",      $this->senhaEmail);
+            $cmd->execute();
+        }
+
+        function RedefineSenha()
+        {
+            $conexao = Conexao::Conectar();
+
+            $cmd = $conexao->prepare("UPDATE responsavel SET senhaEmail = :senhaEmail
+            WHERE idResponsavel = :idResponsavel");
+
+            $cmd->bindParam(":senhaEmail", $this->senhaEmail);
+            $cmd->execute();
+        }
+
         function Retornar()
         {
             $conexao = Conexao::Conectar();
@@ -96,36 +114,6 @@
             return $cmd->fetch(PDO::FETCH_OBJ);
         }
 
-        function Atualizar()
-        {
-            $conexao = Conexao::Conectar();
-
-            $cmd = $conexao->prepare("CALL spAtualizarResponsavel (:nomeResponsavel, :telefone, :email, :senhaEmail, :senhaAcesso)");
-            $cmd->bindParam(":nomeResponsavel", $this->nome);
-            $cmd->bindParam(":telefone", $this->telefone);
-            $cmd->bindParam(":email", $this->email);
-            $cmd->bindParam(":senhaEmail", $this->senhaEmail);
-            $cmd->bindParam(":senhaAcesso", $this->senhaEmail);
-            $cmd->execute();
-        }
-
-        function RedefinirSenha()
-        {
-            $conexao = Conexao::Conectar();
-
-            $cmd = $conexao->prepare("UPDATE responsavel SET senhaEmail = :senhaEmail
-            WHERE idResponsavel = :idResponsavel");
-
-            $cmd->bindParam(":senhaEmail", $this->senhaEmail);
-            $cmd->execute();
-        }
-
-        /*function RecuperarSenha()
-        {
-            $conexao = Conexao::Conectar();
-
-            // Colocar código no banco de dados
-        }*/
 
         function Logar()
         {
