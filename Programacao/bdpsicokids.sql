@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.5
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: 22-Maio-2022 às 21:57
--- Versão do servidor: 5.6.34
--- PHP Version: 7.1.11
+-- Host: 127.0.0.1
+-- Tempo de geração: 31-Maio-2022 às 22:41
+-- Versão do servidor: 10.4.24-MariaDB
+-- versão do PHP: 7.4.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,33 +18,38 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `bdpsicokids`
+-- Banco de dados: `bdpsicokids`
 --
 
 DELIMITER $$
 --
--- Procedures
+-- Procedimentos
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `spAtualizaCrianca` (IN `spnomeCrianca` VARCHAR(100), IN `spidade` INT(11), IN `spserie` INT(11), IN `spsexo` VARCHAR(10), IN `spimagemPerfil` VARCHAR(50))  UPDATE crianca SET nomeCrianca = spnome, idade = spidade, serie = spserie, sexo = spsexo, imagemPerfil = spimagemPerfil
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spAtualizaCrianca` (IN `spnomeCrianca` VARCHAR(100), IN `spidade` INT(11), IN `spserie` INT(11), IN `spsexo` VARCHAR(10), IN `spimagemPerfil` VARCHAR(50))   UPDATE crianca SET nomeCrianca = spnome, idade = spidade, serie = spserie, sexo = spsexo, imagemPerfil = spimagemPerfil
     WHERE idCrianca = spidCrianca$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `spAtualizaResponsavel` (IN `nomeResponsavel` VARCHAR(90), `telefone` VARCHAR(15), `email` VARCHAR(100), `senhaEmail` VARCHAR(20))  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spAtualizaResponsavel` (IN `nomeResponsavel` VARCHAR(90), `telefone` VARCHAR(15), `email` VARCHAR(100), `senhaEmail` VARCHAR(20))   BEGIN
     UPDATE responsavel SET nomeResponsavel = spnomeResponsavel, telefone = sptelefone, email = spemail, senhaEmail = spsenhaEmail
     WHERE idResponsavel = spidResponsavel;
     END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `spCadastraCrianca` (IN `nomeCrianca` VARCHAR(100), IN `idade` INT(11), IN `serie` INT(11), IN `sexo` VARCHAR(10), IN `avaliacao` VARCHAR(10), IN `nivel` INT(11), IN `imagemPerfil` VARCHAR(50))  INSERT INTO crianca (nomeCrianca, idade, serie, sexo, avaliacao, nivel, imagemPerfil) 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spCadastraCrianca` (IN `nomeCrianca` VARCHAR(100), IN `idade` INT(11), IN `serie` INT(11), IN `sexo` VARCHAR(10), IN `avaliacao` VARCHAR(10), IN `nivel` INT(11), IN `imagemPerfil` VARCHAR(50))   INSERT INTO crianca (nomeCrianca, idade, serie, sexo, avaliacao, nivel, imagemPerfil) 
     VALUES (nomeCrianca = spnomeCrianca, idade = spidade, serie = spserie, sexo = spsexo, avaliacao = spavaliacao, nivel = spnivel, imagemPerfil = spimagemPerfil)$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `spCadastraResponsavel` (IN `nomeResponsavel` VARCHAR(90), IN `telefone` VARCHAR(15), IN `email` VARCHAR(100), IN `senhaEmail` VARCHAR(20), IN `senhaAcesso` INT(6), IN `nivelacesso` INT)  BEGIN
-    INSERT INTO responsavel (nomeResponsavel, telefone, email, senhaEmail, senhaAcesso,
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spCadastraResponsavel` (IN `nomeResponsavel` VARCHAR(90), IN `telefone` VARCHAR(15), IN `email` VARCHAR(100), IN `senhaEmail` VARCHAR(20), IN `nivelacesso` INT)   BEGIN
+    INSERT INTO responsavel (nomeResponsavel, telefone, email, senhaEmail,
                              nivelacesso) 
-    VALUES (nomeResponsavel, telefone, email, senhaEmail, senhaAcesso, nivelacesso);    
+    VALUES (nomeResponsavel, telefone, email, senhaEmail, nivelacesso);    
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `spConsultaCrianca` (IN `nomeCrianca` VARCHAR(100), IN `idade` INT(11), IN `serie` INT(11), IN `sexo` VARCHAR(10), IN `imagemPerfil` VARCHAR(50))  SELECT idCrianca, nomeCrianca, idade, serie, sexo, imagemPerfil FROM crianca$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spCadastraSenhaAcesso` (IN `senhaAcesso` INT(6))   BEGIN
+    INSERT INTO responsavel (senhaAcesso) 
+    VALUES (senhaAcesso);    
+END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `spConsultaResponsavel` (IN `nomeResponsavel` VARCHAR(90), IN `telefone` VARCHAR(15), IN `email` VARCHAR(100), IN `senhaEmail` VARCHAR(20))  SELECT idResponsavel, nomeResponsavel, telefone, email FROM responsavel$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spConsultaCrianca` (IN `nomeCrianca` VARCHAR(100), IN `idade` INT(11), IN `serie` INT(11), IN `sexo` VARCHAR(10), IN `imagemPerfil` VARCHAR(50))   SELECT idCrianca, nomeCrianca, idade, serie, sexo, imagemPerfil FROM crianca$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spConsultaResponsavel` (IN `nomeResponsavel` VARCHAR(90), IN `telefone` VARCHAR(15), IN `email` VARCHAR(100), IN `senhaEmail` VARCHAR(20))   SELECT idResponsavel, nomeResponsavel, telefone, email FROM responsavel$$
 
 DELIMITER ;
 
@@ -78,45 +82,46 @@ CREATE TABLE `responsavel` (
   `telefone` varchar(15) NOT NULL,
   `email` varchar(100) NOT NULL,
   `senhaEmail` varchar(20) NOT NULL,
-  `senhaAcesso` int(6) NULL,
-  `idCrianca` int(11) NOT NULL
+  `senhaAcesso` int(6) DEFAULT NULL,
+  `idCrianca` int(11) NOT NULL,
+  `recuperaSenha` varchar(65) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Indexes for dumped tables
+-- Índices para tabelas despejadas
 --
 
 --
--- Indexes for table `crianca`
+-- Índices para tabela `crianca`
 --
 ALTER TABLE `crianca`
   ADD PRIMARY KEY (`idCrianca`);
 
 --
--- Indexes for table `responsavel`
+-- Índices para tabela `responsavel`
 --
 ALTER TABLE `responsavel`
   ADD PRIMARY KEY (`idResponsavel`),
   ADD KEY `idCrianca` (`idCrianca`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT de tabelas despejadas
 --
 
 --
--- AUTO_INCREMENT for table `crianca`
+-- AUTO_INCREMENT de tabela `crianca`
 --
 ALTER TABLE `crianca`
   MODIFY `idCrianca` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `responsavel`
+-- AUTO_INCREMENT de tabela `responsavel`
 --
 ALTER TABLE `responsavel`
   MODIFY `idResponsavel` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- Constraints for dumped tables
+-- Restrições para despejos de tabelas
 --
 
 --
