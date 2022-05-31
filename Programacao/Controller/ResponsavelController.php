@@ -1,6 +1,6 @@
     <?php header('Access-Control-Allow-Origin: *');
     
-<<<<<<< HEAD
+
     // Importando bibliotecas do PHPMailer
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\SMTP;
@@ -9,8 +9,7 @@
    
 
     include_once "Model/conexaobd.php";
-=======
->>>>>>> bca032412f2912f573597f33f441acfce07710bd
+
     include_once "Model/responsavel.php";
 
     class ResponsavelController
@@ -19,7 +18,7 @@
         {
             // Pegando os valores dos elementos do Construct através do $_GET
             $responsavel = new Responsavel();
-<<<<<<< HEAD
+
             $responsavel->nome = $_GET["nomeResponsavel"];
             $responsavel->telefone = $_GET["telefone"];
             $responsavel->email = $_GET["email"];
@@ -36,13 +35,13 @@
                 //Erro ao cadastrar.
                 die("false");
             }
-=======
+
             $responsavel->nome          = $_GET["nomeResponsavel"];
             $responsavel->telefone      = $_GET["telefone"];
             $responsavel->email         = $_GET["email"];
             $responsavel->senhaEmail    = password_hash($_GET["senhaEmail"], PASSWORD_DEFAULT);
             $responsavel->Cadastrar();
->>>>>>> bca032412f2912f573597f33f441acfce07710bd
+
         }
 
         function CadastrarSenhaAcesso()
@@ -90,7 +89,7 @@
             //"Senha redefinida com sucesso" -> Setar mensagem no construct
         }
 
-        /*function recuperarSenha()
+        function recuperarSenha()
         {
 
             $conexao = Conexao::Conectar();
@@ -198,7 +197,7 @@
             }
 
 
-        }*/
+        }
             
             
         function Logar()
@@ -236,7 +235,7 @@
 
                     else
                     {
-<<<<<<< HEAD
+
                         echo "Senha de acesso inválida!";
                     }
                 } 
@@ -245,31 +244,11 @@
                 {
                     echo "Senha de acesso inválida!";
                 }   
-=======
-                        echo "Não localizado";
-                    }
-                } 
->>>>>>> bca032412f2912f573597f33f441acfce07710bd
+
+
             }
 
-            /*function RetornarRelatorio()
-            {
-                $conexao = Conexao::Conectar();
-
-                $cmd = $conexao->prepare("SELECT avaliacao FROM crianca WHERE idCrianca = :idCrianca");
-
-                $responsavel = new Responsavel();
-                $responsavel->idResposanvel = $_GET["idResponsavel"];
-                $responsavel->nomeResponsavel = $_GET["nomeResponsavel"];
-                $responsavel->telefone = $_GET["telefone"];
-                $responsavel->email = $_GET["email"];
-                $responsavel->senhaEmail = $_GET["senhaEmail"];
-                $responsavel->senhaAcesso = $_GET["senhaAcesso"];
-                $responsavel->RetornarRelatorio();
-                $cmd->execute();
-                return $cmd->fetch(PDO::FETCH_OBJ);
-                // O retorno deverá ser feito através do ID da crianca
-            }*/
+            
         }
     }
 ?>

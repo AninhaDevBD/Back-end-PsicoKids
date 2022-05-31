@@ -42,7 +42,7 @@
             $cmd->bindParam(":email",           $this->email);
             $cmd->bindParam(":senhaEmail",      $this->senhaEmail);
             
-<<<<<<< HEAD
+
             $dados = "";
             $cmd1 = $this->email;
             $cmd2 = $this->senhaEmail;
@@ -50,9 +50,9 @@
             
 
             $cmd->execute(); // Executando o comando
-=======
+
             $cmd->execute(); //executando o comando SQL
->>>>>>> bca032412f2912f573597f33f441acfce07710bd
+
         }
 
         
