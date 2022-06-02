@@ -34,7 +34,7 @@
             $conexao = Conexao::Conectar(); //Retornar conexão
 
             // Preparar comando SQL para cadastrar
-            $cmd = $conexao->prepare("CALL spCadastrarResponsavel (:nomeResponsavel, :telefone, :email, :senhaEmail, :senhaAcesso)");
+            $cmd = $conexao->prepare("CALL spCadastrarResponsavel (:nomeResponsavel, :telefone, :email, :senhaEmail)");
         
             // Parâmetros SQL
             $cmd->bindParam(":nomeResponsavel", $this->nome);
@@ -42,7 +42,17 @@
             $cmd->bindParam(":email",           $this->email);
             $cmd->bindParam(":senhaEmail",      $this->senhaEmail);
             
+
+            $dados = "";
+            $cmd1 = $this->email;
+            $cmd2 = $this->senhaEmail;
+            $dados = $cmd1 + $cmd2;
+            
+
+            $cmd->execute(); // Executando o comando
+
             $cmd->execute(); //executando o comando SQL
+
         }
 
         
@@ -128,16 +138,22 @@
             return $cmd->fetch(PDO::FETCH_OBJ);
         }
 
-        function RetornarRelatorio()
+        /*function RetornarRelatorio()
         {
+
+            //colocar os parametros
             $conexao = Conexao::Conectar();
 
-            $cmd = $conexao->prepare("SELECT avaliacao FROM crianca WHERE idCrianca = :idCrianca");
-            $cmd->bindParam(":idResponsavel", $this->idResponsavel);
 
+            $cmd = $conexao->prepare("SELECT * FROM crianca WHERE avaliacao = :avaliacao");
+
+            $cmd->bindParam(":avaliacao", $this->avaliacao);
             $cmd->execute();
             return $cmd->fetch(PDO::FETCH_OBJ);
-        }
-}
+        }*/
+    }
+        
+
+
 
 ?>
