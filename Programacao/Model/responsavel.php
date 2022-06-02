@@ -109,7 +109,7 @@
         {
             $conexao = Conexao::Conectar();
 
-            $cmd = $conexao->prepare("SELECT * FROM responsavel WHERE email = :email");
+            $cmd = $conexao->prepare("SELECT idResponsavel FROM responsavel WHERE email = :email");
             $cmd->bindParam(":email", $this->email);
 
             $cmd->execute();

@@ -6,7 +6,7 @@ class Conexao
     static function Conectar()
     {
         $conexao = new PDO("mysql:host=localhost;
-        port=3306;dbname=psicokids", "root", "usbw");
+        port=3306;dbname=psicokids", "root", "");
 
         // Ativando recurso de exibição de erro SQL
         $conexao->setAttribute(PDO::ATTR_ERRMODE,
