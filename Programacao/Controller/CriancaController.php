@@ -18,22 +18,6 @@
             $crianca->avaliacao = $_GET["avaliacao"];
             $crianca->nivel = $_GET["nivel"];
 
-            // Upload de imagem de perfil
-            $nomeImagem = $_FILES [":imagemPerfil"]["name"];
-            $nomeTemporario = $_FILES ["imagem"]["tmp_name"];
-
-            // Pegar a extensão do arquivo
-            $informacoes = new SplFileInfo($nomeImagem);
-            $extensao = $informacoes->getExtension();
-
-            // Gerar novo nome
-            $novoNome = md5(microtime()) . ".$extensao";
-
-            $pastaDestino = "Recursos/Img/$novoNome";
-            move_uploaded_file($nomeTemporario, $pastaDestino);
-
-            $crianca->imagem = $novoNome; //Nome do arquivo para o banco
-
             $crianca->Cadastrar();
 
             //"Dados cadastrados com sucesso" Setar mensagem no construct
@@ -69,7 +53,6 @@
                 $crianca->sexo = $_GET["sexo"];
                 $crianca->avaliacao = $_GET["avaliacao"];
                 $crianca->nivel = $_GET["nivel"];
-                $crianca->imagemPerfil = $_GET["imagemPerfil"];
                 $crianca->RetornarRelatorio();
                 $cmd->execute();
                 return $cmd->fetch(PDO::FETCH_OBJ);

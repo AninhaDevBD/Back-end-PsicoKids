@@ -208,6 +208,7 @@
 
             if($dadosResponsavel)
             {
+                //$recebe_senha = password_verify($_GET["senhaEmail"]);
                 if($dadosResponsavel && password_verify($_GET["senhaEmail"], $dadosResponsavel->senhaEmail))
                 {
                     //Usuário logado. Construct direcionará para a próxima tela"

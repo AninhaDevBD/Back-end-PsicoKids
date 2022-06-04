@@ -6,7 +6,7 @@ class Conexao
     static function Conectar()
     {
 
-         $conexao = new PDO("mysql:host=localhost;
+        $conexao = new PDO("mysql:host=localhost;
         port=3306;dbname=psicokids", "root", "");
 
         // Ativando recurso de exibição de erro SQL
@@ -17,5 +17,4 @@ class Conexao
         // OBS: Não esquecer de fechar a conexão com o banco
     }
 }
-
 ?>
