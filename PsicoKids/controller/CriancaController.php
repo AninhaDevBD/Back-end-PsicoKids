@@ -1,33 +1,17 @@
 <?php
-include_once "model/Usuario.php"; //métodos BD
+include_once "model/Crianca.php"; //métodos BD
 
-class UsuarioController
+class CriancaController
 {
-    function abrirCadastro()
+
+    function Cadastrar()
     {
-         //caso não usuário não esteja logado
-         if(!isset($_SESSION["dadosUsuario"])) { header("Location:".URL."entrar"); return; }
-
-         //caso não tenha privilégio
-         if($_SESSION["dadosUsuario"]->nivelacesso == 2) { header("Location:".URL."adm"); return; }
-
-        include "view/usuario.php";
-    }
-
-    function cadastrar()
-    {
-        //caso não usuário não esteja logado
-        if(!isset($_SESSION["dadosUsuario"])) { header("Location:".URL."entrar"); return; }
-
-        //caso não tenha privilégio
-        if($_SESSION["dadosUsuario"]->nivelacesso == 2) { header("Location:".URL."adm"); return; }
-
-        $usu = new Usuario();
-        $usu->nome          = $_POST["nome"];
-        $usu->email         = $_POST["email"];
-        $usu->senha         = password_hash($_POST["senha"], PASSWORD_DEFAULT);
-        $usu->nivelacesso   = $_POST["nivelacesso"];
-        $usu->cadastrar();
+        $crianca = new Crianca();
+        $crianca->nome          = $_POST["nome"];
+        $crianca->email         = $_POST["email"];
+        $crianca->senha         = password_hash($_POST["senha"], PASSWORD_DEFAULT);
+        $crianca->nivelacesso   = $_POST["nivelacesso"];
+        $crianca->cadastrar();
 
         echo "<script>
                 alert('Dados gravados com sucesso!');
@@ -131,6 +115,5 @@ class UsuarioController
         session_destroy();
         header("Location:".URL);
     }
-
 }
 ?>
