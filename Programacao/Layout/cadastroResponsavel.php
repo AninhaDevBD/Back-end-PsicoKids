@@ -10,7 +10,7 @@
 
     $consultaSelecionada = "SELECT email FROM responsavel WHERE email = '$email'";
     $seleciona = mysqli_query($conexao, $consultaSelecionada);
-    $retornoConsulta = mysqli_fetch_array($seleciona);
+    $retornoConsulta = $seleciona;
     $valorCadastro = $retornoConsulta['email'];
 
     if($email == "" || $email == null)
